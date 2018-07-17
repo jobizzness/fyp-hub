@@ -10,12 +10,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 import { html } from '@polymer/lit-element';
 import { PageViewElement } from '../components/page-view-element.js';
-import { SharedStyles } from '../components/shared-styles.js';
 
 class MyView404 extends PageViewElement {
   _render(props) {
     return html`
-      ${SharedStyles}
       <section>
         <h2>Oops! You hit a 404</h2>
         <p>The page you're looking for doesn't seem to exist. Head back

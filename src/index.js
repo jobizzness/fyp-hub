@@ -3,4 +3,4 @@
 /* Import WebpackApp */
 
 /* eslint-disable no-unused-vars */
-import './components/sk-app';
+import './components/bn-app';

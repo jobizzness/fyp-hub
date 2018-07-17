@@ -13,10 +13,11 @@ export const UPDATE_OFFLINE = 'UPDATE_OFFLINE';
 export const UPDATE_DRAWER_STATE = 'UPDATE_DRAWER_STATE';
 export const OPEN_SNACKBAR = 'OPEN_SNACKBAR';
 export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR';
+const DEFAULT_PAGE = 'feed';
 
 export const navigate = (path) => (dispatch) => {
   // Extract the page name from path.
-  const page = path === '/' ? 'view1' : path.split('/')[1];
+  const page = path === '/' ? DEFAULT_PAGE : path.split('/')[1];
   const slug = page ? path.split('/')[2] : null;
 
   // Any other info you might want to extract from the path (like page type),
@@ -30,23 +31,17 @@ export const navigate = (path) => (dispatch) => {
 const loadPage = (page) => async (dispatch) => {
   // If the page is invalid, set to 404. The is also a good spot to check
   // other location things like sub-path or query params.
-  if (['view1', 'view2', 'view3'].indexOf(page) === -1) {
+  if ([DEFAULT_PAGE, 'view2', 'view3'].indexOf(page) === -1) {
     page = 'view404';
   }
 
   dispatch(updatePage(page));
 
   switch(page) {
-    case 'view1':
-      await import('../pages/my-view1.js');
+    case DEFAULT_PAGE:
+      await import('../pages/bn-feed/');
       // Put code here that you want it to run every time when
       // navigate to view1 page and my-view1.js is loaded
-      break;
-    case 'view2':
-      await import('../pages/my-view2.js');
-      break;
-    case 'view3':
-      await import('../pages/my-view3.js');
       break;
     default:
       await import('../pages/my-view404.js');

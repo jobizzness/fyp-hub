@@ -8,17 +8,45 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { LitElement } from '@polymer/lit-element';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js'
+import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js'
+export class PageViewElement extends PolymerElement {
 
-export class PageViewElement extends LitElement {
-  // Only render this page if it's actually visible.
-  _shouldRender(props, changedProps, old) {
-    return props.active;
-  }
+	static get properties() {
+		return {
+			selected: {
+				type: Boolean,
+				reflectToAttribute: true,
+				value: false
+			},
+			active: {
+				type: Boolean,
+				reflectToAttribute: true,
+				value: false
+			},
+		}
+	}
 
-  static get properties() {
-    return {
-      active: Boolean
-    }
-  }
+	show() {
+		this.active = true
+	}
+  
+	hide() {
+		this.active = false
+	}
+  
+	_attachDom(node) {
+		dom(this).appendChild(node)
+	}
+
+	ready() {
+		super.ready()
+
+		//Play animation when page is loaded
+		if (this.start && typeof this.show === 'function') {
+			this.show()
+		}
+
+	}
+
 }

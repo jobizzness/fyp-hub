@@ -1,0 +1,165 @@
+<style>
+  bn-app{
+    display: block;
+    --app-drawer-width: 256px;
+    --app-header-backgrond-color: var(--app-background-color);
+  }
+
+  app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background-color: var(--app-header-background-color);
+    color: var(--app-header-text-color);
+  }
+
+  .toolbar-top {
+    background-color: var(--app-header-background-color);
+  }
+
+  .main-app--container{
+    padding-top: 64px;
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+
+  .main-content {
+    min-height: 100vh;
+  }
+
+  aside{
+    width: 350px;
+    padding-right: 6em;
+  }
+
+  bn-app nav{
+    padding-top: 3em;
+  }
+
+  #pages [page] {
+    display: none;
+  }
+
+  #pages [page][active] {
+    display: block;
+  }
+
+  .user-profile{
+    padding: 1em;
+  }
+
+  .user-profile--avatar{
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: #eee;
+    margin-bottom: 16px;
+    overflow: hidden;
+    background-size: cover;
+  }
+
+  .user-profile--name{
+    color: var(--app-text-dark4);
+  }
+
+  .nav-item{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    outline: none;
+    letter-spacing: 1px;
+    font-weight: 300;
+    color: var(--app-drawer-text-color);
+    line-height: 40px;
+    padding: .4em 2em;
+    font-size: 14px;
+    position: relative;
+  }
+
+  .create-btn{
+    width: 100%;
+    justify-content: normal;
+    box-shadow: -1px 2px 4px #0000001f;
+    margin-bottom: 1em;
+  }
+
+  paper-progress{
+    width: 100%;
+    --paper-progress-active-color: var(--app-accent-color);
+  }
+  /* Wide layout: when the viewport width is smaller than 768px, layout
+      changes to a wide layout. */
+
+  @media (max-width: 768px) {
+
+  }
+</style>
+<!-- Header -->
+<app-header condenses reveals effects="waterfall">
+  <paper-progress indeterminate ></paper-progress>
+  <app-toolbar class="toolbar-top">
+    <div main-title>FYP HUB</div>
+  </app-toolbar>
+</app-header>
+<div class="main-app--container layout horizontal">
+
+  <!-- Navigation -->
+  <aside>
+    <div class="user-profile">
+      <div class="user-profile--avatar"
+       style="background-image: url(https://pbs.twimg.com/profile_images/972460944994418688/zipc-DNs_400x400.jpg)">
+        <img 
+          src="https://pbs.twimg.com/profile_images/972460944994418688/zipc-DNs_400x400.jpg" 
+          alt="" 
+          hidden 
+          title=""
+          >
+      </div>
+      <!-- Avatar -->
+      <h3 class="user-profile--name">Matarr Jobe</h2>
+      <h4 class="user-profile--nickname">@Jobizzness</h2>
+    </div>
+
+    <nav role="navigation" class="layout vertical">
+      <paper-button 
+        class="accent-button rounded-slightly create-btn" 
+        on-click="_createProject">
+        <iron-icon icon="bn-icons:create" class="mar-l-r-8"></iron-icon> Create Project
+      </paper-button>
+
+      <a href="/" class="nav-item">
+        <iron-icon icon="bn-icons:timeline" class="mar-l-r-8"></iron-icon> Discussions
+        <paper-ripple></paper-ripple>
+      </a>
+
+      <a href="/projects" class="nav-item">
+        <iron-icon icon="bn-icons:project" class="mar-l-r-8"></iron-icon> My Projects
+        <paper-ripple></paper-ripple>
+      </a>
+
+      <a href="/profile" class="nav-item">
+        <iron-icon icon="bn-icons:person" class="mar-l-r-8"></iron-icon> My Profile
+        <paper-ripple></paper-ripple>
+      </a>
+      <a href="/account" class="nav-item">
+        <iron-icon icon="bn-icons:settings" class="mar-l-r-8"></iron-icon> Account Settings
+        <paper-ripple></paper-ripple>
+      </a>
+      
+    </nav>
+  </aside>
+
+  <!-- Pages -->
+  <main class="main-content flex" id="pages">
+    <bn-feed page="feed"></bn-feed>
+  </main>
+</div>
+
+
+<!-- <footer>
+  <p>Made with &lt;3 by the Polymer team.</p>
+</footer> -->
+<!-- <snack-bar active?="${_snackbarOpened}">
+  You are now ${_offline ? 'offline' : 'online'}.</snack-bar> -->

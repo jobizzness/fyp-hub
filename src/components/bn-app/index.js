@@ -1,0 +1,151 @@
+
+
+import { PolymerElement, html } from '@polymer/polymer/polymer-element'
+
+import '@polymer/app-layout/app-drawer/app-drawer.js'
+import '@polymer/app-layout/app-header/app-header.js'
+import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js'
+import '@polymer/app-layout/app-toolbar/app-toolbar.js'
+import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js'
+import '@polymer/iron-flex-layout/iron-flex-layout-classes.js'
+import { setPassiveTouchGestures } from '@polymer/polymer/lib/utils/settings.js'
+
+import '../my-icons.js';
+
+import { connect } from 'pwa-helpers/connect-mixin.js'
+import { installRouter } from 'pwa-helpers/router.js'
+import { installOfflineWatcher } from 'pwa-helpers/network.js'
+import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js'
+//import { updateMetadata } from 'pwa-helpers/metadata.js'
+
+import { store } from '../../store.js'
+import { navigate, updateOffline, updateLayout } from '../../actions/app.js'
+import template from './template.html'
+import SharedStyles from '../shared-styles.html'
+
+class BnApp extends connect(store)(PolymerElement) {
+	static get template() {
+		return html([
+			SharedStyles
+			+ template
+		])
+	}
+
+	static get properties() {
+		return {
+			appTitle: String,
+			page: {
+				type: Object,
+				observer: '_pageChanged',
+				reflectToAttribute: true
+			},
+			loading: String,
+			_drawerOpened: Boolean,
+			_snackbarOpened: Boolean,
+			_offline: Boolean
+		}
+	}
+
+	constructor() {
+		super()
+		// To force all event listeners for gestures to be passive.
+		// See https://www.polymer-project.org/2.0/docs/devguide/gesture-events#use-passive-gesture-listeners
+		setPassiveTouchGestures(true)
+	}
+
+	connectedCallback() {
+		super.connectedCallback()
+		installRouter((location) => store.dispatch(navigate(window.decodeURIComponent(location.pathname))))
+		installOfflineWatcher((offline) => store.dispatch(updateOffline(offline)))
+		installMediaQueryWatcher('(min-width: 460px)',
+			(matches) => store.dispatch(updateLayout(matches)))
+	}
+
+	/**
+   * @desc When the user navigates to a new page
+   * @param {old, new} page - passes old and new page
+   */
+	_pageChanged(page, old) {
+		this._drawerOpened = false
+
+		this._activatePage(
+			this.$pages.querySelector(`[page=${page}]`),
+			this.$pages.querySelector(`[page=${old}]`)
+		)
+
+	}
+
+	/**
+	* @desc opens a modal window to display a message
+	* @param string msg - the message to be displayed
+	* @return bool - success or failure
+	*/
+	is_selected(page, view) {
+		return page === view
+	}
+
+	/**
+	* @desc opens a modal window to display a message
+	* @param string msg - the message to be displayed
+	* @return bool - success or failure
+	*/
+	async _activatePage(_newPage, _oldPage) {
+		//hide the old page
+		if (_oldPage && typeof _oldPage.hide === 'function') {
+			await _oldPage.hide()
+		}
+
+		//Show the new page
+		if (_newPage && typeof _newPage.show === 'function') {
+			await _newPage.show()
+		} else {
+			//if we are here, the page is not loaded so maybe show a spinner
+			//wait for adwhile try again?
+			//sky is the limit
+			_newPage.start = true
+		}
+
+		window.scrollTo(0, 0)
+
+	}
+
+	ready(){
+		super.ready()
+		this.$pages = this.querySelector('#pages')
+		this._importLazyElements();
+		
+	}
+
+	async _importLazyElements(){
+		await import('../lazy-components.js')
+	}
+
+	// _didRender(properties, changeList) {
+	// 	if ('_page' in changeList) {
+	// 		const pageTitle = properties.appTitle + ' - ' + changeList._page
+	// 		updateMetadata({
+	// 			title: pageTitle,
+	// 			description: pageTitle
+	// 			// This object also takes an image property, that points to an img src.
+	// 		})
+	// 	}
+	// }
+
+	_attachDom(node) {
+		dom(this).appendChild(node)
+	}
+
+	/**
+	* @desc opens a modal window to display a message
+	* @param string msg - the message to be displayed
+	* @return bool - success or failure
+	*/
+	_stateChanged(state) {
+		this.page = state.app.page
+		this._offline = state.app.offline
+		this._snackbarOpened = state.app.snackbarOpened
+		this._drawerOpened = state.app.drawerOpened
+	}
+}
+
+window.customElements.define('bn-app', BnApp)
