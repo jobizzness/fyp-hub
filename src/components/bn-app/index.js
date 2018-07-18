@@ -116,6 +116,10 @@ class BnApp extends connect(store)(PolymerElement) {
 		
 	}
 
+	_createProject(){
+		this.$.projectEditor.open();
+	}
+
 	async _importLazyElements(){
 		await import('../lazy-components.js')
 	}

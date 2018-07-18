@@ -11,6 +11,8 @@ import { html } from '@polymer/polymer/polymer-element.js'
 import { PageViewElement } from '../../components/page-view-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 
+import '../../components/discussion-editor.js'
+import '../../components/bn-post-item'
 import { store } from '../../store.js'
 import template from './template.html'
 
@@ -44,6 +46,10 @@ class BnFeed extends connect(store)(PageViewElement) {
 		super()
 	}
 
+	_create(){
+		this.$editor.open();
+	}
+
 	connectedCallback(){
 		super.connectedCallback()
 	}
@@ -53,6 +59,7 @@ class BnFeed extends connect(store)(PageViewElement) {
      */
 	ready() {
 		super.ready()
+		this.$editor = document.getElementById('projectEditor');
 	}
 
 	_stateChanged(state){

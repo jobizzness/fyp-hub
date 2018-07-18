@@ -1,6 +1,37 @@
 <style>
-
+    bn-feed{
+        padding: 16px;
+    }
+    .create-post-card{
+        background-color: white;
+        cursor: pointer;
+        max-width: 750px;
+        border-radius: 12px;
+        position: relative;
+    }
+    .create-post-card h1{
+        font-weight: 300;
+        color: #969696;
+        padding: 1em;
+    }
 </style>
 <section>
-    Hola
+    <!-- Share something component -->
+    <div class="create-post-card shadow pad"
+    on-click="_create">
+        <h1>Share something...</h1>
+        <paper-ripple></paper-ripple>
+    </div>
+    <!-- List of all the discussions -->
+    <div class="list">
+        <bn-post-item></bn-post-item>
+        <bn-post-item></bn-post-item>
+        <bn-post-item></bn-post-item>
+        <bn-post-item></bn-post-item>
+        <bn-post-item></bn-post-item>
+        <bn-post-item></bn-post-item>
+        <bn-post-item></bn-post-item>
+    </div>
 </section>
+
+<!-- <bn-discussion-editor id="editor" opened></bn-discussion-editor> -->
