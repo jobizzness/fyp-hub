@@ -82,6 +82,7 @@
     "@polymer/iron-flex-layout": "3.0.0-pre.21",
     "@polymer/iron-icon": "3.0.0-pre.21",
     "@polymer/iron-iconset-svg": "3.0.0-pre.21",
+    "@polymer/iron-image": "3.0.0-pre.21",
     "@polymer/iron-overlay-behavior": "3.0.0-pre.21",
     "@polymer/lit-element": "^0.5.0",
     "@polymer/paper-button": "3.0.0-pre.21",

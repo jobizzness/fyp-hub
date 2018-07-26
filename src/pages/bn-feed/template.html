@@ -5,33 +5,154 @@
     .create-post-card{
         background-color: white;
         cursor: pointer;
-        max-width: 750px;
-        border-radius: 12px;
+        border-radius: 4px;
         position: relative;
     }
     .create-post-card h1{
         font-weight: 300;
         color: #969696;
+        font-size: 1.3rem;
+        margin-left: 1em;
+    }
+    bn-feed .avatar{
+        height: 50px;
+        width: 50px;
+    }
+    bn-feed header{
+        height: 100px;
+    }
+    .search-btn-wrapper{
+        width: 100%;
+        height: 49px;
+        padding: 8px 16px;
+        align-items: center;
+        display: flex;
+        border-bottom: 1px solid #eee;
+        cursor: text;
+        transition: all .2s cubic-bezier(.645,.045,.355,1);
+        color: #ababab;
+        font-size: .9rem;
+    }
+    .search-btn-wrapper:hover{
+        background-color: #fff;
+        box-shadow: 0 8px 16px 0 rgba(40,40,90,.09), 0 3px 6px 0 rgba(0,0,0,.065);
+    }
+    .search-btn-wrapper iron-icon{
+        margin-right: 8px;
+    }
+    .feed{
         padding: 1em;
     }
+    .feed-inner{
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    .right-aside{
+        padding-top: 90px;
+        min-height: 100vh;
+        width: 345px;
+    }
+    .card{
+        min-height: 200px;
+        margin-bottom: 16px;
+        padding: 16px;
+    }
+    .card-body{
+        margin-top: 16px
+    }
+    .widget-item{
+        display: block;
+        text-decoration: none;
+        padding: 8px 16px;
+        margin-bottom: 4px;
+        color: #07423c;
+        border-bottom: 1px solid #d0d0d0;
+        font-weight: 500;
+        position: relative;
+    }
 </style>
-<section>
-    <!-- Share something component -->
-    <div class="create-post-card shadow pad"
-    on-click="_create">
-        <h1>Share something...</h1>
-        <paper-ripple></paper-ripple>
-    </div>
-    <!-- List of all the discussions -->
-    <div class="list">
-        <bn-post-item></bn-post-item>
-        <bn-post-item></bn-post-item>
-        <bn-post-item></bn-post-item>
-        <bn-post-item></bn-post-item>
-        <bn-post-item></bn-post-item>
-        <bn-post-item></bn-post-item>
-        <bn-post-item></bn-post-item>
-    </div>
-</section>
+<div class="layout horizontal">
+    <section class="feed flex">
+        <div class="feed-inner">
+            <header class="layout horizontal center">
+                <div class="search-btn-wrapper">
+                    <iron-icon icon="bn-icons:search"></iron-icon>
+                    Search For FYP Topics...
+                </div>
+            </header>
+            <!-- Share something component -->
+            <div class="create-post-card shadow pad layout horizontal center" on-click="_create">
+                <div class="avatar" style="background-image: url(https://pbs.twimg.com/profile_images/972460944994418688/zipc-DNs_400x400.jpg)">
+                    <img src="https://pbs.twimg.com/profile_images/972460944994418688/zipc-DNs_400x400.jpg" alt="" title="">
+                </div>
+                <h1>Share something or ask a question...</h1>
+                <paper-ripple></paper-ripple>
+            </div>
+            <!-- List of all the discussions -->
+            <div class="list">
+                <bn-post-item></bn-post-item>
+                <bn-post-item></bn-post-item>
+                <bn-post-item></bn-post-item>
+                <bn-post-item></bn-post-item>
+                <bn-post-item></bn-post-item>
+                <bn-post-item></bn-post-item>
+                <bn-post-item></bn-post-item>
+            </div>
+        </div>
+    </section>
+    <section class="right-aside">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="heading-6">Topics</h1>
+            </div>
+            <div class="card-body">
+                <a href="#" class="widget-item">
+                    <span>Databases</span>
+                    <paper-ripple></paper-ripple>
+                </a>
+                <a href="#" class="widget-item">
+                    <span>PHP</span>
+                    <paper-ripple></paper-ripple>
+                </a>
+                <a href="#" class="widget-item">
+                    <span>Machine Learning</span>
+                    <paper-ripple></paper-ripple>
+                </a>
+                <a href="#" class="widget-item">
+                    <span>NO SQL</span>
+                    <paper-ripple></paper-ripple>
+                </a>
+                <a href="#" class="widget-item">
+                    <span>C++</span>
+                    <paper-ripple></paper-ripple>
+                </a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h1 class="heading-6">Latest FYP Proposals</h1>
+            </div>
+            <div class="card-body">
 
-<!-- <bn-discussion-editor id="editor" opened></bn-discussion-editor> -->
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h1 class="heading-6">FYP Advice</h1>
+            </div>
+            <div class="card-body">
+            
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h1 class="heading-6">Jobs</h1>
+            </div>
+            <div class="card-body">
+            
+            </div>
+        </div>
+        <div class="card"></div>
+    </section>
+    <!-- <bn-discussion-editor id="editor" opened></bn-discussion-editor> -->
+</div>

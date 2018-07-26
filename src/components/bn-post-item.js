@@ -23,7 +23,7 @@ class BnPostItem extends PolymerElement {
                     padding: 16px;
                     background-color: white;
                     min-height: 150px;
-                    max-width: 750px;
+                    max-width: 700px;
                     box-shadow: 0 8px 16px 0 rgba(40,40,90,.09), 0 3px 6px 0 rgba(0,0,0,.065);
                 }
                 p{
@@ -41,7 +41,6 @@ class BnPostItem extends PolymerElement {
                 }
                 header{
                     display: flex;
-                 
                     align-items:center;
                 }
                 h3{

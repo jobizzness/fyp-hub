@@ -21,10 +21,6 @@
 
   .main-app--container{
     padding-top: 64px;
-    padding-left: 2em;
-    padding-right: 2em;
-    max-width: 1500px;
-    margin-right: auto;
   }
 
   .main-content {
@@ -32,8 +28,19 @@
   }
 
   aside{
-    width: 350px;
-    padding-right: 6em;
+    width: 280px;
+    position:relative;
+    height: 100vh;
+    
+  }
+
+  aside>.aside-inner{
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    left: 0;
+    padding: 2em;
+    z-index: 3;
   }
 
   bn-app nav{
@@ -80,6 +87,10 @@
     position: relative;
   }
 
+  .nav-item[active]{
+    border-left: 4px solid var(--app-accent-color);
+  }
+
   .create-btn{
     width: 100%;
     justify-content: normal;
@@ -109,53 +120,55 @@
 
   <!-- Navigation -->
   <aside>
-    <div class="user-profile">
-      <div class="user-profile--avatar"
-       style="background-image: url(https://pbs.twimg.com/profile_images/972460944994418688/zipc-DNs_400x400.jpg)">
-        <img 
-          src="https://pbs.twimg.com/profile_images/972460944994418688/zipc-DNs_400x400.jpg" 
-          alt="" 
-          hidden 
-          title=""
-          >
-      </div>
-      <!-- Avatar -->
-      <h3 class="user-profile--name">Matarr Jobe</h2>
-      <h4 class="user-profile--nickname">@Jobizzness</h2>
+    <div class="aside-inner">
+      <div class="user-profile">
+        <div class="user-profile--avatar"
+        style="background-image: url(https://pbs.twimg.com/profile_images/972460944994418688/zipc-DNs_400x400.jpg)">
+          <img 
+            src="https://pbs.twimg.com/profile_images/972460944994418688/zipc-DNs_400x400.jpg" 
+            alt="" 
+            hidden 
+            title=""
+            >
+        </div>
+        <!-- Avatar -->
+        <h3 class="user-profile--name">Matarr Jobe</h2>
+        <h4 class="user-profile--nickname">@Jobizzness</h2>
     </div>
 
-    <nav role="navigation" class="layout vertical">
-      <paper-button 
-        class="accent-button rounded-slightly create-btn" 
-        on-click="_createProject">
-        <iron-icon icon="bn-icons:create" class="mar-l-r-8"></iron-icon> Create Project
-      </paper-button>
+      <nav role="navigation" class="layout vertical">
+        <paper-button 
+          class="accent-button rounded-slightly create-btn" 
+          on-click="_createProject">
+          <iron-icon icon="bn-icons:create" class="mar-l-r-8"></iron-icon> Create Project
+        </paper-button>
 
-      <a href="/" class="nav-item">
-        <iron-icon icon="bn-icons:timeline" class="mar-l-r-8"></iron-icon> Discussions
-        <paper-ripple></paper-ripple>
-      </a>
+        <a href="/" class="nav-item">
+          <iron-icon icon="bn-icons:timeline" class="mar-l-r-8"></iron-icon> Discussions
+          <paper-ripple></paper-ripple>
+        </a>
 
-      <a href="/projects" class="nav-item">
-        <iron-icon icon="bn-icons:project" class="mar-l-r-8"></iron-icon> My Projects
-        <paper-ripple></paper-ripple>
-      </a>
+        <a href="/projects" class="nav-item" active>
+          <iron-icon icon="bn-icons:project" class="mar-l-r-8"></iron-icon> My Projects
+          <paper-ripple></paper-ripple>
+        </a>
 
-      <a href="/profile" class="nav-item">
-        <iron-icon icon="bn-icons:person" class="mar-l-r-8"></iron-icon> My Profile
-        <paper-ripple></paper-ripple>
-      </a>
-      <a href="/account" class="nav-item">
-        <iron-icon icon="bn-icons:settings" class="mar-l-r-8"></iron-icon> Account Settings
-        <paper-ripple></paper-ripple>
-      </a>
-      
-    </nav>
+        <a href="/profile" class="nav-item">
+          <iron-icon icon="bn-icons:person" class="mar-l-r-8"></iron-icon> My Profile
+          <paper-ripple></paper-ripple>
+        </a>
+        <a href="/account" class="nav-item">
+          <iron-icon icon="bn-icons:settings" class="mar-l-r-8"></iron-icon> Account Settings
+          <paper-ripple></paper-ripple>
+        </a>
+      </nav>
+    </div>
   </aside>
 
   <!-- Pages -->
   <main class="main-content flex" id="pages">
     <bn-feed page="feed"></bn-feed>
+    <bn-projects page="projects"></bn-projects>
   </main>
 </div>
 
