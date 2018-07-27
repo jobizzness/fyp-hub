@@ -65,11 +65,34 @@
         text-decoration: none;
         padding: 8px 16px;
         margin-bottom: 4px;
-        color: #07423c;
-        border-bottom: 1px solid #d0d0d0;
-        font-weight: 500;
         position: relative;
     }
+    .topics>*{
+        border-bottom: 1px solid #d0d0d0;
+        font-weight: 500;
+        color: #545454;
+    }
+    .proposals{
+
+    }
+    .proposal--label{
+        font-weight: 300;
+        font-size: .9rem;
+        color: #696969;
+    }
+    .proposals>*:hover{
+        background-color: #eee;
+    }
+    .proposal--title{
+        font-weight: 400;
+        color: #000000;
+        font-size: .9rem;
+    }
+    .proposal--owner{
+        color: #008398;
+        font-size: .9rem;
+    }
+    
 </style>
 <div class="layout horizontal">
     <section class="feed flex">
@@ -105,7 +128,7 @@
             <div class="card-header">
                 <h1 class="heading-6">Topics</h1>
             </div>
-            <div class="card-body">
+            <div class="card-body topics">
                 <a href="#" class="widget-item">
                     <span>Databases</span>
                     <paper-ripple></paper-ripple>
@@ -132,16 +155,37 @@
             <div class="card-header">
                 <h1 class="heading-6">Latest FYP Proposals</h1>
             </div>
-            <div class="card-body">
-
+            <div class="card-body proposals">
+                <a href="#" class="widget-item">
+                    <span class="proposal--title">Bitcoin prediction model, Artifical Intellegence...</span>
+                    <span class="proposal--label">Proposed by:</span> 
+                    <span class="proposal--owner">Dr Kamalakannan</span>
+                </a>
+                <a href="#" class="widget-item">
+                    <span class="proposal--title">Graph Theory Based Transmission Network Vulnerability Assessment Method for Large Electrical Grids...</span>
+                    <span class="proposal--label">Proposed by:</span>
+                    <span class="proposal--owner">APU</span>
+                </a>
+                <a href="#" class="widget-item">
+                    <span class="proposal--title">Generator Coherency Identification using Fuzzy Logic...</span>
+                    <span class="proposal--label">Proposed by:</span>
+                    <span class="proposal--owner">Li Kee Ong</span>
+                </a>
+                <a href="#" class="widget-item">
+                    <span class="proposal--title"> Optimal Power Flow using ANN, with Environmental Considerations...</span>
+                    <span class="proposal--label">Proposed by:</span>
+                    <span class="proposal--owner">Li Kee Ong</span>
+                </a>
             </div>
         </div>
         <div class="card">
             <div class="card-header">
                 <h1 class="heading-6">FYP Advice</h1>
             </div>
-            <div class="card-body">
-            
+            <div class="card-body advices">
+                <a href="#" class="widget-item">
+                    <!-- <span class="advice--title">How do i get started with my research?</span> -->
+                </a>
             </div>
         </div>
         <div class="card">

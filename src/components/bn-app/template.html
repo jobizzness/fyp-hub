@@ -26,7 +26,12 @@
   .main-content {
     min-height: 100vh;
   }
-
+  [main-title]{
+    text-shadow: 0px 2px 0px #54545473;
+    font-weight: 600;
+    color: #000000;
+    letter-spacing: 4px;
+  }
   aside{
     width: 280px;
     position:relative;
@@ -143,21 +148,21 @@
           <iron-icon icon="bn-icons:create" class="mar-l-r-8"></iron-icon> Create Project
         </paper-button>
 
-        <a href="/" class="nav-item">
+        <a href="/" class="nav-item" active$="[[is_selected('feed', page)]]">
           <iron-icon icon="bn-icons:timeline" class="mar-l-r-8"></iron-icon> Discussions
           <paper-ripple></paper-ripple>
         </a>
 
-        <a href="/projects" class="nav-item" active>
+        <a href="/projects" class="nav-item" active$="[[is_selected('projects', page)]]">
           <iron-icon icon="bn-icons:project" class="mar-l-r-8"></iron-icon> My Projects
           <paper-ripple></paper-ripple>
         </a>
 
-        <a href="/profile" class="nav-item">
+        <a href="/profile" class="nav-item" active$="[[is_selected('profile_images', page)]]">
           <iron-icon icon="bn-icons:person" class="mar-l-r-8"></iron-icon> My Profile
           <paper-ripple></paper-ripple>
         </a>
-        <a href="/account" class="nav-item">
+        <a href="/account" class="nav-item" active$="[[is_selected('account', page)]]">
           <iron-icon icon="bn-icons:settings" class="mar-l-r-8"></iron-icon> Account Settings
           <paper-ripple></paper-ripple>
         </a>
