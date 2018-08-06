@@ -109,6 +109,10 @@ class BnApp extends connect(store)(PolymerElement) {
 
 	}
 
+	_shouldShowSidebar(page){
+		return (page != 'auth');
+	}
+
 	ready(){
 		super.ready()
 		this.$pages = this.querySelector('#pages')

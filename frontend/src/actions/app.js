@@ -31,7 +31,7 @@ export const navigate = (path) => (dispatch) => {
 const loadPage = (page) => async (dispatch) => {
   // If the page is invalid, set to 404. The is also a good spot to check
   // other location things like sub-path or query params.
-  if ([DEFAULT_PAGE, 'projects', 'view3'].indexOf(page) === -1) {
+  if ([DEFAULT_PAGE, 'projects', 'auth'].indexOf(page) === -1) {
     page = 'view404';
   }
 
@@ -40,6 +40,9 @@ const loadPage = (page) => async (dispatch) => {
   switch(page) {
     case DEFAULT_PAGE:
       await import('../pages/bn-feed/')
+      break;
+    case 'auth':
+      await import ('../pages/bn-auth/');
       break;
     case 'projects':
       await import('../pages/bn-projects/')

@@ -30,6 +30,7 @@ class BnProjectItem extends LitElement {
             .title{
                 font-size: 1.1rem;
                 font-weight: 500;
+                color: #464646;
             }
             .horizontal{
                 display: flex;

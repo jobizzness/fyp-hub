@@ -2,7 +2,7 @@
   bn-app{
     display: block;
     --app-drawer-width: 256px;
-    --app-header-backgrond-color: var(--app-background-color);
+    --app-header-backgrond-color: #f1f1f1;
   }
 
   app-header {
@@ -27,9 +27,8 @@
     min-height: 100vh;
   }
   [main-title]{
-    text-shadow: 0px 2px 0px #54545473;
     font-weight: 600;
-    color: #000000;
+    color: #585858;
     letter-spacing: 4px;
   }
   aside{
@@ -41,7 +40,7 @@
 
   aside>.aside-inner{
     position: fixed;
-    top: 0;
+    top: 4em;
     height: 100vh;
     left: 0;
     padding: 2em;
@@ -116,15 +115,16 @@
 </style>
 <!-- Header -->
 <app-header condenses reveals effects="waterfall">
-  <paper-progress indeterminate ></paper-progress>
+  <paper-progress indeterminate hidden></paper-progress>
   <app-toolbar class="toolbar-top">
     <div main-title>FYP HUB</div>
+    <paper-icon-button icon="bn-icons:bell"></paper-icon-button>
   </app-toolbar>
 </app-header>
-<div class="main-app--container layout horizontal">
+<div class="main-app--container layout horizontal" >
 
   <!-- Navigation -->
-  <aside>
+  <aside hidden$="[[!_shouldShowSidebar(page)]]">
     <div class="aside-inner">
       <div class="user-profile">
         <div class="user-profile--avatar"
@@ -174,6 +174,7 @@
   <main class="main-content flex" id="pages">
     <bn-feed page="feed"></bn-feed>
     <bn-projects page="projects"></bn-projects>
+    <bn-auth page="auth"></bn-auth>
   </main>
 </div>
 
