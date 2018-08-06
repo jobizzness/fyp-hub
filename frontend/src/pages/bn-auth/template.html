@@ -1,0 +1,78 @@
+<style>
+    [page]{
+        display: none;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        height: 100%;
+    }
+    [page][selected]{
+        display: flex;
+    }
+    .wrapper{
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    aside{
+        flex: 1;
+        max-width: 300px;
+        background-color: var(--app-accent-color);
+    }
+    main{
+        padding: 16px;
+        background-color: white;
+    }
+    form{
+        width: 100%;
+    }
+    .card{
+        width: 100%;
+        max-width: 835px;
+        min-height: 500px;
+        border-radius: 14px;
+        overflow: hidden;
+    }
+</style>
+<div class="page-wrapper content">
+    <div class="wrapper">
+        <div class="shadow card layout horizontal">
+            <aside>
+            
+            </aside>
+            <main class="flex">
+                <section page="register" selected$="[[is_selected(page, 'register')]]">
+  
+                </section>
+                <section page="login" selected$="[[is_selected(page, 'login')]]">
+                    <form id="form">
+                        <section class="row">
+                            <div class="mdc-text-field text-field mdc-text-field--dense mdc-text-field--box mdc-text-field--with-leading-icon">
+                                <iron-icon class="mdc-text-field__icon" icon="bn-icons:email"></iron-icon>
+                                <input id="email" name="email" type="email" required value="{{email::change}}" class="mdc-text-field__input">
+                                <label class="mdc-floating-label" for="email">Email</label>
+                                <div class="mdc-line-ripple"></div>
+                            </div>
+                        </section>
+                        <section class="row">
+                            <div class="mdc-text-field text-field mdc-text-field--dense mdc-text-field--box mdc-text-field--with-leading-icon">
+                                <iron-icon class="mdc-text-field__icon" icon="bn-icons:key"></iron-icon>
+                                <input type="password" id="password" required value="{{password::change}}" class="mdc-text-field__input">
+                                <label class="mdc-floating-label" for="password">Password</label>
+                                <div class="mdc-line-ripple"></div>
+                            </div>
+                        </section>
+                        <section class="row actions pad">
+                            <button class="mdc-button mdc-button--raised" id="mybtn" on-click="submit">
+                                Login
+                            </button>
+                        </section>
+                    </form>
+                </section>
+            </main>
+        </div>
+        
+    </div>
+    
+</div>

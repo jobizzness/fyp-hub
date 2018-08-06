@@ -115,7 +115,7 @@ class BnApp extends connect(store)(PolymerElement) {
 
 	ready(){
 		super.ready()
-		this.$pages = this.querySelector('#pages')
+		this.$pages = this.shadowRoot.querySelector('#pages')
 		this._importLazyElements();
 		
 	}
@@ -138,10 +138,6 @@ class BnApp extends connect(store)(PolymerElement) {
 	// 		})
 	// 	}
 	// }
-
-	_attachDom(node) {
-		dom(this).appendChild(node)
-	}
 
 	/**
 	* @desc opens a modal window to display a message

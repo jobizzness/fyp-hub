@@ -7,12 +7,17 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
-import { html } from '@polymer/polymer/polymer-element.js';
-import { PageViewElement } from "../../components/page-view-element";
-import { connect } from 'pwa-helpers/connect-mixin.js';
+import { html } from '@polymer/polymer/polymer-element.js'
+import { PageViewElement } from "../../components/page-view-element"
+import { connect } from 'pwa-helpers/connect-mixin.js'
 
-import { store } from '../../store.js';
-import template from './template.html';
+import { store } from '../../store.js'
+import { MDCTextField } from '@material/textfield'
+
+import template from './template.html'
+import SharedStyles from '../../components/shared-styles.html'
+import textField from '../../components/material/textfield.html'
+import button from '../../components/material/button.html'
 
 /**
  * `bn-project` Description
@@ -31,13 +36,16 @@ class BnAuth extends connect(store)(PageViewElement) {
 
     static get template() {
         return html([
+            SharedStyles +
+            textField +
+            button +
             template
         ]);
     }
 
     /**
-            * Object describing property-related metadata used by Polymer features
-            */
+    * Object describing property-related metadata used by Polymer features
+    */
     static get properties() {
         return {}
     }
@@ -52,8 +60,18 @@ class BnAuth extends connect(store)(PageViewElement) {
         super();
     }
 
+    /**
+	* @desc opens a modal window to display a message
+	* @param string msg - the message to be displayed
+	* @return bool - success or failure
+	*/
+    is_selected(page, view) {
+        return page === view
+    }
+
     connectedCallback(){
         super.connectedCallback();
+        this.querySelectorAll('.mdc-text-field').forEach((node) => new MDCTextField(node));
     }
 
     /**
@@ -61,6 +79,7 @@ class BnAuth extends connect(store)(PageViewElement) {
      */
     ready() {
         super.ready();
+        this.page = 'login'
     }
 
     _stateChanged(state){

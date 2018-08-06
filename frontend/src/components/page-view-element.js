@@ -34,10 +34,7 @@ export class PageViewElement extends PolymerElement {
 	hide() {
 		this.active = false
 	}
-  
-	_attachDom(node) {
-		dom(this).appendChild(node)
-	}
+
 
 	ready() {
 		super.ready()
