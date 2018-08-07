@@ -79,7 +79,7 @@ class BnAuth extends connect(store)(PageViewElement) {
      */
     ready() {
         super.ready();
-        this.page = 'login'
+        this.page = 'register'
     }
 
     _stateChanged(state){

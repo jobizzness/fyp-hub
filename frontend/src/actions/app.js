@@ -8,7 +8,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-export const UPDATE_PAGE = 'UPDATE_PAGE';
+export const UPDATE_ROUTE = 'UPDATE_ROUTE';
 export const UPDATE_OFFLINE = 'UPDATE_OFFLINE';
 export const UPDATE_DRAWER_STATE = 'UPDATE_DRAWER_STATE';
 export const OPEN_SNACKBAR = 'OPEN_SNACKBAR';
@@ -22,20 +22,20 @@ export const navigate = (path) => (dispatch) => {
 
   // Any other info you might want to extract from the path (like page type),
   // you can do here
-  dispatch(loadPage(page));
+  dispatch(loadPage({page, slug}));
 
   // Close the drawer - in case the *path* change came from a link in the drawer.
   dispatch(updateDrawerState(false));
 };
 
-const loadPage = (page) => async (dispatch) => {
+const loadPage = ({page, slug}) => async (dispatch) => {
   // If the page is invalid, set to 404. The is also a good spot to check
   // other location things like sub-path or query params.
   if ([DEFAULT_PAGE, 'projects', 'auth'].indexOf(page) === -1) {
     page = 'view404';
   }
 
-  dispatch(updatePage(page));
+  dispatch(updateRoute({page, slug}));
 
   switch(page) {
     case DEFAULT_PAGE:
@@ -51,10 +51,10 @@ const loadPage = (page) => async (dispatch) => {
   }
 }
 
-const updatePage = (page) => {
+const updateRoute = (route) => {
   return {
-    type: UPDATE_PAGE,
-    page
+    type: UPDATE_ROUTE,
+    route
   };
 }
 

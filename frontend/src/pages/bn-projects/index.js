@@ -13,6 +13,7 @@ import { connect } from 'pwa-helpers/connect-mixin.js'
 
 import { store } from '../../store.js'
 import template from './template.html'
+import SharedStyles from '../../components/shared-styles.html'
 import '../../components/bn-project-item.js'
 
 /**
@@ -27,7 +28,8 @@ class BnProjects extends connect(store)(PageViewElement) {
 
     static get template() {
         return html([
-            template
+            template +
+            SharedStyles
         ]);
     }
 

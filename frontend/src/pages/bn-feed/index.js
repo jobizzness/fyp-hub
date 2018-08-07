@@ -15,6 +15,7 @@ import '../../components/discussion-editor.js'
 import '../../components/bn-post-item'
 import { store } from '../../store.js'
 import template from './template.html'
+import SharedStyles from '../../components/shared-styles.html'
 
 /**
  * `bn-project` Description
@@ -33,6 +34,7 @@ class BnFeed extends connect(store)(PageViewElement) {
 
 	static get template() {
 		return html([
+			SharedStyles +
 			template
 		])
 	}

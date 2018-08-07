@@ -145,7 +145,7 @@ class BnApp extends connect(store)(PolymerElement) {
 	* @return bool - success or failure
 	*/
 	_stateChanged(state) {
-		this.page = state.app.page
+		this.page = state.app.route.page
 		this._offline = state.app.offline
 		this._snackbarOpened = state.app.snackbarOpened
 		this._drawerOpened = state.app.drawerOpened
