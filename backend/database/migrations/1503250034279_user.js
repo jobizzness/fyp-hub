@@ -5,7 +5,7 @@ const Schema = use('Schema')
 class UserSchema extends Schema {
   up () {
     this.create('users', (collection) => {
-      collection.index('_id', { _id: 1 })
+      collection.index('uid', { uid: 1 })
       collection.timestamps()
     })
   }

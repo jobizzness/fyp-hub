@@ -80,8 +80,8 @@ module.exports = {
     scheme: 'api',
     model: 'App/Models/User',
     token: 'App/Models/Token',
-    uid: 'username',
-    password: '',
+    uid: 'uid',
+    password: 'password',
     expiry: '30d',
   },
 }
