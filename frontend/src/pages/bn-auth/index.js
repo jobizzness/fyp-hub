@@ -13,11 +13,15 @@ import { connect } from 'pwa-helpers/connect-mixin.js'
 
 import { store } from '../../store.js'
 import { MDCTextField } from '@material/textfield'
+import { MDCCheckbox } from '@material/checkbox'
+import { MDCFormField } from '@material/form-field'
 
 import template from './template.html'
 import SharedStyles from '../../components/shared-styles.html'
 import textField from '../../components/material/textfield.html'
+import formField from '../../components/material/form-field.html'
 import button from '../../components/material/button.html'
+import checkbox from '../../components/material/checkbox.html'
 
 /**
  * `bn-project` Description
@@ -39,15 +43,10 @@ class BnAuth extends connect(store)(PageViewElement) {
             SharedStyles +
             textField +
             button +
+            formField +
+            checkbox +
             template
         ]);
-    }
-
-    /**
-    * Object describing property-related metadata used by Polymer features
-    */
-    static get properties() {
-        return {}
     }
 
 
@@ -71,7 +70,11 @@ class BnAuth extends connect(store)(PageViewElement) {
 
     connectedCallback(){
         super.connectedCallback();
-        this.querySelectorAll('.mdc-text-field').forEach((node) => new MDCTextField(node));
+        this.shadowRoot.querySelectorAll('.mdc-text-field').forEach((node) => new MDCTextField(node));
+        this.shadowRoot.querySelectorAll('.mdc-checkbox').forEach((node) => new MDCCheckbox(node));
+        this.shadowRoot.querySelectorAll('.mdc-form-field').forEach((node) => new MDCFormField(node));
+
+        
     }
 
     /**
@@ -79,11 +82,10 @@ class BnAuth extends connect(store)(PageViewElement) {
      */
     ready() {
         super.ready();
-        this.page = 'register'
     }
 
     _stateChanged(state){
-        
+        this.page = state.app.route.slug
     }
 }
 
