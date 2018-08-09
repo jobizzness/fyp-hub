@@ -28,15 +28,15 @@ class AuthController extends ApiController{
     * @param string msg - the message to be displayed
     * @return bool - success or failure
     */
-    async index({params, request}){
+    async index({params, request, auth}){
 
         let action = params.action
 
         switch (action) {
             case LOGIN_ACTION:
-                return await this.login(request)
+                return await this.login(request, auth)
             case REGISTER_ACTION:
-                return await this.register(request)
+                return await this.register(request, auth)
             case RECOVER_ACTION:
                 return await this.recover(request);
             default:
@@ -49,8 +49,31 @@ class AuthController extends ApiController{
     * @param string msg - the message to be displayed
     * @return bool - success or failure
     */
-    async login(){
+    async login(request, auth){
 
+        let data = request.only(['password', 'email']);
+
+        const rules = {
+            email: 'required',
+            password: 'required'
+        }
+
+        const validation = await validateAll(data, rules)
+
+        if (validation.fails()) {
+            return this.validationFails(validation)
+        }
+
+        try {
+            let res = await auth.attempt(data.email, data.password)
+            return this.respond({
+                data: res
+            })
+        } catch (error) {
+            return this.requestFailed()
+        }
+        
+        
     }
 
     /**
@@ -60,10 +83,11 @@ class AuthController extends ApiController{
     */
     async register(request){
 
-        let data = request.only(['username', 'email', 'age']);
+        let data = request.only(['password', 'email']);
 
         const rules = {
-            email: 'required'
+            email: 'required|email|unique:users,email',
+            password: 'required'
         }
 
         const validation = await validateAll(data, rules)
@@ -74,8 +98,9 @@ class AuthController extends ApiController{
 
         //Create the user and respond with the data
         const user = await (new CreateUserCommand(data));
-        
-        return this.respond(this.transformer.transform(data))
+        // event(new UserWasCreated(user))
+
+        return this.respond(this.transformer.transform(user))
         
 
     }

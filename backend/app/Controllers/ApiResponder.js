@@ -19,7 +19,7 @@ const ApiResponder = (_base) =>  class extends _base {
 
     }
 
-    requestFailed(message){
+    requestFailed(message = 'Could not process response'){
 
         return this.respondWithError(message)
     }

@@ -11,8 +11,14 @@ class CreateUserCommand extends Command{
         
     }
 
-    handle(){
+    async handle(){
+
+        const user = await User.create({
+            email: this.data.email,
+            password: this.data.password
+        })
         
+        return user
     }
 }
 
