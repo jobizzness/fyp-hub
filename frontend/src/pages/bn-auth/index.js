@@ -23,6 +23,8 @@ import formField from '../../components/material/form-field.html'
 import button from '../../components/material/button.html'
 import checkbox from '../../components/material/checkbox.html'
 
+import { login } from "../../core/auth.js";
+
 /**
  * `bn-project` Description
  *
@@ -77,6 +79,9 @@ class BnAuth extends connect(store)(PageViewElement) {
         
     }
 
+    login(){
+        store.dispatch(login('jobizzness@gmail.com', '1234567'))
+    }
     /**
      * Use for one-time configuration of your component after local DOM is initialized. 
      */

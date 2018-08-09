@@ -1,12 +1,11 @@
 
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element'
-
+import {App} from '../../core/app.js'
 import '@polymer/app-layout/app-drawer/app-drawer.js'
 import '@polymer/app-layout/app-header/app-header.js'
 import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js'
 import '@polymer/app-layout/app-toolbar/app-toolbar.js'
-import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js'
 import '@polymer/iron-flex-layout/iron-flex-layout-classes.js'
 import { setPassiveTouchGestures } from '@polymer/polymer/lib/utils/settings.js'
 
