@@ -10,6 +10,11 @@
     [page][selected]{
         display: flex;
     }
+    :host([loading]) main{
+        opacity: .4;
+        pointer-events: none;
+
+    }
     .wrapper{
         min-height: 100vh;
         display: flex;
@@ -23,6 +28,7 @@
     }
     main{
         padding: 16px;
+        position: relative;
         background-color: white;
     }
     form{
@@ -44,14 +50,25 @@
         font-size: .9rem;
         font-weight: 500;
     }
+    bn-spinner{
+        position: fixed;
+        top: calc(50% - 14px);
+        left: calc(60% - 14px);
+        z-index: 7;
+        --bn-spinner-color-primary: #00BCD4;
+        --bn-spinner-color-secondary:#6200ee;
+    }
 </style>
 <div class="page-wrapper content">
     <div class="wrapper">
         <div class="shadow card layout horizontal">
+            <bn-spinner active></bn-spinner>
             <aside>
             
             </aside>
             <main class="flex">
+                
+
                 <section page="register" selected$="[[is_selected(page, 'register')]]">
                     <!-- 
                         ========== Register Form ==============
@@ -74,7 +91,7 @@
                             </div>
                         </section>
                         <section class="actions">
-                            <button class="mdc-button mdc-button--raised" on-click="submit">
+                            <button class="mdc-button mdc-button--raised" on-click="register">
                                 Sign Up
                             </button>
                             <div class="social">

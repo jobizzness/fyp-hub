@@ -28,8 +28,9 @@ class AuthController extends ApiController{
     * @param string msg - the message to be displayed
     * @return bool - success or failure
     */
-    async index({params, request, auth}){
+    async index({params, request, auth, response}){
 
+        this.response = response;
         let action = params.action
 
         switch (action) {
@@ -59,21 +60,16 @@ class AuthController extends ApiController{
         }
 
         const validation = await validateAll(data, rules)
-
-        if (validation.fails()) {
-            return this.validationFails(validation)
-        }
-
+        if (validation.fails()) return this.validationFails(validation)
+    
         try {
             let res = await auth.attempt(data.email, data.password)
             return this.respond({
                 data: res
             })
         } catch (error) {
-            return this.requestFailed()
+            return this.accountNotFound(error)
         }
-        
-        
     }
 
     /**
@@ -81,7 +77,7 @@ class AuthController extends ApiController{
     * @param string msg - the message to be displayed
     * @return bool - success or failure
     */
-    async register(request){
+    async register(request, auth){
 
         let data = request.only(['password', 'email']);
 
@@ -98,9 +94,12 @@ class AuthController extends ApiController{
 
         //Create the user and respond with the data
         const user = await (new CreateUserCommand(data));
+        let res = await auth.attempt(data.email, data.password)
         // event(new UserWasCreated(user))
 
-        return this.respond(this.transformer.transform(user))
+        return this.respond({
+            data: res
+        })
         
 
     }
@@ -118,6 +117,11 @@ class AuthController extends ApiController{
 
     validationFails(validation){
         return this.requestFailed(validation.messages());
+    }
+
+    accountNotFound(error){
+        return this.respondNotFound();
+        
     }
 }
 

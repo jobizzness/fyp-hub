@@ -22,8 +22,10 @@ import textField from '../../components/material/textfield.html'
 import formField from '../../components/material/form-field.html'
 import button from '../../components/material/button.html'
 import checkbox from '../../components/material/checkbox.html'
+import '../../components/bn-spinner'
 
-import { login } from "../../core/auth.js";
+
+import { login, register } from "../../core/auth.js";
 
 /**
  * `bn-project` Description
@@ -36,7 +38,11 @@ import { login } from "../../core/auth.js";
 class BnAuth extends connect(store)(PageViewElement) {
     static get properties() {
         return {
-
+            loading: {
+                type: Boolean,
+                reflectToAttribute: true,
+                value: false
+            }
         }
     }
 
@@ -79,14 +85,42 @@ class BnAuth extends connect(store)(PageViewElement) {
         
     }
 
-    login(){
-        store.dispatch(login('jobizzness@gmail.com', '1234567'))
+    login(e){
+        e.preventDefault()
+        let form = this._getForm(e)
+
+        if(form && form.checkValidity()){
+            const email = form.querySelector('input[type=email]').value
+            const password = form.querySelector('input[type=password]').value
+            this.loading = true;
+            store.dispatch(login(email, password))
+        }
+        
+    }
+
+    register(e){
+        e.preventDefault()
+        let form = this._getForm(e)
+
+        if (form && form.checkValidity()) {
+            const email = form.querySelector('input[type=email]').value
+            const password = form.querySelector('input[type=password]').value
+            store.dispatch(register(email, password))
+        }
+    }
+
+    _getForm(e){
+        let node = e.target;
+        let form = node.closest('form')
+        return form; //can be null
+
     }
     /**
      * Use for one-time configuration of your component after local DOM is initialized. 
      */
     ready() {
         super.ready();
+        this.loading = true;
     }
 
     _stateChanged(state){

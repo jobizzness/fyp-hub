@@ -25,7 +25,8 @@ const ApiResponder = (_base) =>  class extends _base {
     }
 
     respond(data, headers = []){
-        return data
+        this.response.type('application/json')
+        this.response.send(data)
     }
 
     setStatusCode(value){
