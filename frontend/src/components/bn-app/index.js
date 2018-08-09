@@ -19,6 +19,7 @@ import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js'
 
 import { store } from '../../store.js'
 import { navigate, updateOffline, updateLayout } from '../../actions/app.js'
+import { fetchUser } from '../../actions/auth.js'
 import template from './template.html'
 import SharedStyles from '../shared-styles.html'
 
@@ -116,6 +117,8 @@ class BnApp extends connect(store)(PolymerElement) {
 		super.ready()
 		this.$pages = this.shadowRoot.querySelector('#pages')
 		this._importLazyElements();
+
+		store.dispatch(fetchUser())
 		
 	}
 

@@ -29,7 +29,5 @@ Route
 Route
   .resource('user', 'UserController')
   .apiOnly()
-  .middleware(new Map([
-    [['store', 'update', 'destroy'], ['auth']]
-  ]))
+  .middleware('auth')
 

@@ -58,7 +58,7 @@ export class Request {
     _setToken(options){
         options.headers = {
             ...options.headers,
-            authorization: `Bearer ${this.token}`
+            Authorization: `Bearer ${this.token}`
         }
         return options
     }

@@ -2,7 +2,6 @@ import {App} from './app.js'
 
 const Request = App.Request;
 
-
 /**
 * @desc will attempt a login and fetchs the user object
 * @param {email, password} string - the message to be displayed
@@ -22,7 +21,7 @@ export const login = async (email, password) => {
             let tokenData = await response.json()
             if(tokenData.error) reject(tokenData)
             storeToken(tokenData.data.token)
-            resolve(await fetchUser(tokenData.data.token));
+            resolve(tokenData.data);
 
         } catch (error) {
             reject(error);
@@ -44,7 +43,7 @@ export const register = async (email, password) => {
 
             let tokenData = await response.json()
             storeToken(tokenData.data.token)
-            resolve(await fetchUser(tokenData.data.token));
+            resolve(tokenData.data);
 
         } catch (error) {
             reject(error);
@@ -60,10 +59,9 @@ export const logout = async () => {
     this.storeToken(null);
 }
 
-const fetchUser = async () => {
+export const fetchUser = async () => {
     return new Promise(async (resolve, reject) => {
         try {
-
             let response = await Request.get(`${App.API_URL}/user`, {})
             let user = await response.json()
             resolve(user);

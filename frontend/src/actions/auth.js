@@ -1,14 +1,40 @@
 
-const UPDATE_USER = 'UPDATE_USER'
+export const UPDATE_USER = 'UPDATE_USER'
 
-import Auth from '../core/auth'
+import * as Auth from '../core/auth'
 
-export const login = (email, password) => async (dispatch) => {
+export const login = (email, password, listener = null) => async (dispatch) => {
 
     try {
-        let user = await Auth.login(email,password)
-        console.log(user)
+        let auth = await Auth.login(email, password)
+        if (listener) listener.loginCompletes(auth)
     } catch (error) {
-        
+        if (listener) listener.loginCompletes(null, error)
     }
+}
+
+export const register = (email, password, listener = null) => async (dispatch) => {
+    try {
+        let auth = await Auth.login(email, password)
+        if (listener) listener.registerCompletes(auth)
+    } catch (error) {
+        if (listener) listener.registerCompletes(null, error)
+    }
+}
+
+export const fetchUser = () => async (dispatch) => {
+
+    let user = null
+    try {
+        user = await Auth.fetchUser();
+
+    } catch (error) {
+        console.log(error)
+    }
+
+    dispatch({
+        type: UPDATE_USER,
+        user
+    })
+   
 }

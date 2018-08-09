@@ -25,7 +25,7 @@ import checkbox from '../../components/material/checkbox.html'
 import '../../components/bn-spinner'
 
 
-import { login, register } from "../../core/auth.js";
+import { login, register } from "../../actions/auth.js";
 
 /**
  * `bn-project` Description
@@ -42,6 +42,10 @@ class BnAuth extends connect(store)(PageViewElement) {
                 type: Boolean,
                 reflectToAttribute: true,
                 value: false
+            },
+            user:{
+                type: Object,
+                observer: '_userChanged'
             }
         }
     }
@@ -81,51 +85,84 @@ class BnAuth extends connect(store)(PageViewElement) {
         this.shadowRoot.querySelectorAll('.mdc-text-field').forEach((node) => new MDCTextField(node));
         this.shadowRoot.querySelectorAll('.mdc-checkbox').forEach((node) => new MDCCheckbox(node));
         this.shadowRoot.querySelectorAll('.mdc-form-field').forEach((node) => new MDCFormField(node));
-
-        
     }
 
+    _userChanged(user, old) {
+
+    }
+
+    /**
+    * @desc opens a modal window to display a message
+    * @param string msg - the message to be displayed
+    * @return bool - success or failure
+    */
     login(e){
         e.preventDefault()
         let form = this._getForm(e)
 
-        if(form && form.checkValidity()){
+        if(form && form.reportValidity()){
             const email = form.querySelector('input[type=email]').value
             const password = form.querySelector('input[type=password]').value
             this.loading = true;
-            store.dispatch(login(email, password))
+            store.dispatch(login(email, password, this))
         }
-        
     }
 
+    /**
+    * @desc opens a modal window to display a message
+    * @param string msg - the message to be displayed
+    * @return bool - success or failure
+    */
     register(e){
         e.preventDefault()
         let form = this._getForm(e)
 
-        if (form && form.checkValidity()) {
+        if (form && form.reportValidity()) {
             const email = form.querySelector('input[type=email]').value
             const password = form.querySelector('input[type=password]').value
-            store.dispatch(register(email, password))
+            store.dispatch(register(email, password, this))
         }
+    }
+
+    registerCompletes(auth, error){
+        this.loading = false;
+        if(error){
+            
+        }else{
+            this.redirect()
+        }
+    }
+
+    loginCompletes(auth, error){
+        this.loading = false;
+        if (error) {
+
+        } else {
+            this.redirect()
+        }
+    }
+
+    redirect(path){
+        window.location.pathname = path ? path : '/';
     }
 
     _getForm(e){
         let node = e.target;
         let form = node.closest('form')
         return form; //can be null
-
     }
+
     /**
      * Use for one-time configuration of your component after local DOM is initialized. 
      */
     ready() {
         super.ready();
-        this.loading = true;
     }
 
     _stateChanged(state){
         this.page = state.app.route.slug
     }
+
 }
 
 customElements.define('bn-auth', BnAuth);

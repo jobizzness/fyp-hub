@@ -7,11 +7,12 @@ class UserController extends ApiController{
 
     constructor(){
         super()
-        this.user = User;
     }
 
-    index({ request }){
-        return { greeting: 'Hello world in JSON' }
+    index({ request, response, auth }){
+        this.response = response;
+        const user = auth.user;
+        return this.respond(user)
     }
 
     show(){ }

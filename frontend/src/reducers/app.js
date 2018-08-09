@@ -12,6 +12,8 @@ import {
   UPDATE_ROUTE, UPDATE_OFFLINE,
          OPEN_SNACKBAR, CLOSE_SNACKBAR, UPDATE_DRAWER_STATE } from '../actions/app.js';
 
+import { UPDATE_USER } from '../actions/auth.js'
+
 const app = (state = {drawerOpened: false, route: {}}, action) => {
   switch (action.type) {
     case UPDATE_ROUTE:
@@ -19,6 +21,11 @@ const app = (state = {drawerOpened: false, route: {}}, action) => {
         ...state,
         route: action.route
       };
+    case UPDATE_USER:
+      return {
+        ...state,
+        user: action.user
+      }
     case UPDATE_OFFLINE:
       return {
         ...state,
