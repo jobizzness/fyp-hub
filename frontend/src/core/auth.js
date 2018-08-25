@@ -64,6 +64,7 @@ export const fetchUser = async () => {
         try {
             let response = await Request.get(`${App.API_URL}/user`, {})
             let user = await response.json()
+            if(user.error) reject()
             resolve(user);
 
         } catch (error) {

@@ -46,6 +46,12 @@ class BnApp extends connect(store)(PolymerElement) {
 		}
 	}
 
+	static get observers(){
+		return [
+			'_checkUserCanViewPage(page, _user)'
+		]
+	}
+
 	constructor() {
 		super()
 		// To force all event listeners for gestures to be passive.
@@ -67,7 +73,7 @@ class BnApp extends connect(store)(PolymerElement) {
    */
 	_pageChanged(page, old) {
 		this._drawerOpened = false
-
+		
 		this._activatePage(
 			this.$pages.querySelector(`[page=${page}]`),
 			this.$pages.querySelector(`[page=${old}]`)
@@ -84,6 +90,16 @@ class BnApp extends connect(store)(PolymerElement) {
 		return page === view
 	}
 
+	_checkUserCanViewPage(page, _user){
+		if(page === 'auth' && _user){
+			//take you to home
+			this.$.homeLink.click()
+		}else if(page != 'auth' && !_user){
+			//send you to auth
+			this.$.authLink.click()
+
+		}
+	}
 	/**
 	* @desc opens a modal window to display a message
 	* @param string msg - the message to be displayed
@@ -151,6 +167,7 @@ class BnApp extends connect(store)(PolymerElement) {
 		this._offline = state.app.offline
 		this._snackbarOpened = state.app.snackbarOpened
 		this._drawerOpened = state.app.drawerOpened
+		this._user = state.app.user
 	}
 }
 

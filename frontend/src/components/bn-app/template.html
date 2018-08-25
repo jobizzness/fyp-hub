@@ -11,8 +11,9 @@
     left: 0;
     width: 100%;
     text-align: center;
-    background-color: var(--app-header-background-color);
-    color: var(--app-header-text-color);
+    background-color: #0dbead;
+    box-shadow: 0px 0px 1px #909090;
+    color: white;
   }
 
   .toolbar-top {
@@ -28,7 +29,7 @@
   }
   [main-title]{
     font-weight: 600;
-    color: #585858;
+    color: white;
     letter-spacing: 4px;
   }
   aside{
@@ -180,6 +181,8 @@
 
 <bn-discussion-editor id="projectEditor"></bn-discussion-editor>
 
+<a href="/auth/login" id="authLink" hidden></a>
+<a href="/" id="homeLink" hidden></a>
 <!-- <footer>
   <p>Made with &lt;3 by the Polymer team.</p>
 </footer> -->

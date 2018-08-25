@@ -10,7 +10,7 @@ const LOGIN_ACTION = 'login'
 const REGISTER_ACTION = 'register'
 const RECOVER_ACTION = 'recover'
 
-class AuthController extends ApiController{
+class AuthController extends ApiController {
 
     /**
     * @desc opens a modal window to display a message
@@ -61,7 +61,7 @@ class AuthController extends ApiController{
 
         const validation = await validateAll(data, rules)
         if (validation.fails()) return this.validationFails(validation)
-    
+
         try {
             let res = await auth.attempt(data.email, data.password)
             return this.respond({
@@ -87,7 +87,7 @@ class AuthController extends ApiController{
         }
 
         const validation = await validateAll(data, rules)
-        
+
         if(validation.fails()){
             return this.validationFails(validation)
         }
@@ -100,7 +100,7 @@ class AuthController extends ApiController{
         return this.respond({
             data: res
         })
-        
+
 
     }
 
@@ -109,7 +109,7 @@ class AuthController extends ApiController{
     * @param string msg - the message to be displayed
     * @return bool - success or failure
     */
-    async recover(){}
+    async recover(request){}
 
     unknownAction(){
         return this.respondNotFound('This route does not exist eh!');
@@ -121,7 +121,7 @@ class AuthController extends ApiController{
 
     accountNotFound(error){
         return this.respondNotFound();
-        
+
     }
 }
 
