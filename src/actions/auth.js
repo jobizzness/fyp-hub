@@ -1,42 +1,40 @@
 
 export const UPDATE_USER = 'UPDATE_USER'
 
-import * as Auth from '../core/auth'
+// export const login = (email, password, listener = null) => async (dispatch) => {
 
-export const login = (email, password, listener = null) => async (dispatch) => {
+//     try {
+//         let auth = await Auth.login(email, password)
+//         if (listener) listener.loginCompletes(auth)
+//     } catch (error) {
+//         if (listener) listener.loginCompletes(null, error)
+//     }
+// }
 
-    try {
-        let auth = await Auth.login(email, password)
-        if (listener) listener.loginCompletes(auth)
-    } catch (error) {
-        if (listener) listener.loginCompletes(null, error)
-    }
-}
-
-export const register = (email, password, listener = null) => async (dispatch) => {
-    try {
-        let auth = await Auth.login(email, password)
-        if (listener) listener.registerCompletes(auth)
-    } catch (error) {
-        if (listener) listener.registerCompletes(null, error)
-    }
-}
+// export const register = (email, password, listener = null) => async (dispatch) => {
+//     try {
+//         let auth = await Auth.login(email, password)
+//         if (listener) listener.registerCompletes(auth)
+//     } catch (error) {
+//         if (listener) listener.registerCompletes(null, error)
+//     }
+// }
 
 export const fetchUser = () => async (dispatch) => {
 
-    let user = null
-    try {
-        user = await Auth.fetchUser();
+    // let user = null
+    // try {
+    //     user = await Auth.fetchUser();
 
-    } catch (error) {
-        console.log(error)
-    }
+    // } catch (error) {
+    //     console.log(error)
+    // }
 
-    window.localStorage.setItem('user', JSON.stringify(user))
+//     window.localStorage.setItem('user', JSON.stringify(user))
 
-    dispatch({
-        type: UPDATE_USER,
-        user
-    })
+//     dispatch({
+//         type: UPDATE_USER,
+//         user
+//     })
    
 }
