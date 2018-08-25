@@ -94,6 +94,7 @@
     "@polymer/paper-progress": "3.0.0-pre.21",
     "@polymer/polymer": "3.0.0",
     "@webcomponents/webcomponentsjs": "^2.0.0",
+    "firebase": "5.4.1",
     "pwa-helpers": "^0.8.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
