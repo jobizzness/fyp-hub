@@ -14,7 +14,9 @@ import {
 
 import { UPDATE_USER } from '../actions/auth.js'
 
-const app = (state = {drawerOpened: false, route: {}}, action) => {
+const INITIAL_USER = JSON.parse(window.localStorage.getItem('user'));
+
+const app = (state = { drawerOpened: false, route: {}, user: INITIAL_USER}, action) => {
   switch (action.type) {
     case UPDATE_ROUTE:
       return {

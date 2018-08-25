@@ -32,6 +32,8 @@ export const fetchUser = () => async (dispatch) => {
         console.log(error)
     }
 
+    window.localStorage.setItem('user', JSON.stringify(user))
+
     dispatch({
         type: UPDATE_USER,
         user

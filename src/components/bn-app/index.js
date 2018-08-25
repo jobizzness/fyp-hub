@@ -1,6 +1,7 @@
 
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element'
+import { afterNextRender} from '@polymer/polymer/lib/utils/render-status.js'
 import {App} from '../../core/app.js'
 import '@polymer/app-layout/app-drawer/app-drawer.js'
 import '@polymer/app-layout/app-header/app-header.js'
@@ -91,15 +92,22 @@ class BnApp extends connect(store)(PolymerElement) {
 	}
 
 	_checkUserCanViewPage(page, _user){
-		if(page === 'auth' && _user){
-			//take you to home
-			this.$.homeLink.click()
-		}else if(page != 'auth' && !_user){
-			//send you to auth
-			this.$.authLink.click()
-
-		}
+		afterNextRender(this, () => {
+			if (page === 'auth' && _user) {
+				//take you to home
+				if (this.togo) {
+					this.$.homeLink.href = "/" + this.togo + '/'
+				}
+				this.$.homeLink.click()
+			} else if (page != 'auth' && !_user) {
+				//send you to auth
+				this.togo = page;
+				this.$.authLink.click()
+			}
+		})
+		
 	}
+
 	/**
 	* @desc opens a modal window to display a message
 	* @param string msg - the message to be displayed
