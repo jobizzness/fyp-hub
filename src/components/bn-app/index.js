@@ -11,6 +11,9 @@ import { setPassiveTouchGestures } from '@polymer/polymer/lib/utils/settings.js'
 
 import '../my-icons.js';
 
+import '@polymer/paper-button/paper-button.js'
+import '@polymer/iron-icon/iron-icon.js'
+import '@polymer/paper-progress/paper-progress.js'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 import { installRouter } from 'pwa-helpers/router.js'
 import { installOfflineWatcher } from 'pwa-helpers/network.js'
@@ -140,7 +143,6 @@ class BnApp extends connect(store)(PolymerElement) {
 	ready(){
 		super.ready()
 		this.$pages = this.shadowRoot.querySelector('#pages')
-		this._importLazyElements();
 
 		store.dispatch(fetchUser())
 		
@@ -148,10 +150,6 @@ class BnApp extends connect(store)(PolymerElement) {
 
 	_createProject(){
 		this.$.projectEditor.open();
-	}
-
-	async _importLazyElements(){
-		await import('../lazy-components.js')
 	}
 
 	// _didRender(properties, changeList) {

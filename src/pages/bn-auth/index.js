@@ -15,6 +15,7 @@ import { store } from '../../store.js'
 import { MDCTextField } from '@material/textfield'
 import { MDCCheckbox } from '@material/checkbox'
 import { MDCFormField } from '@material/form-field'
+import '@polymer/iron-selector/iron-selector.js'
 
 import template from './template.html'
 import SharedStyles from '../../components/shared-styles.html'

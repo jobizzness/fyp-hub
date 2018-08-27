@@ -50,6 +50,27 @@
         font-size: .9rem;
         font-weight: 500;
     }
+    .bn-button-select{
+        border: 1px solid #eee;
+        padding: 16px 24px;
+        cursor: pointer;
+        border-radius: 4px;
+        text-align: center;
+        overflow: hidden;
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+        color: #575962;
+    }
+    .bn-button-select iron-icon{
+        margin-right: 8px;
+    }
+    .bn-button-select:hover{
+        background-color: #f4f5f8;
+    }
+    .bn-button-select.iron-selected{
+        color: var(--app-accent-color);
+        border-color: var(--app-accent-color);
+    }
 </style>
 <div class="page-wrapper content">
     <div class="wrapper">
@@ -81,6 +102,25 @@
                                 <div class="mdc-line-ripple"></div>
                             </div>
                         </section>
+                         <!-- User type -->
+                        <iron-selector
+                            class="row" 
+                            style="margin-top:1em"
+                            attr-for-selected="type" 
+                            selected="{{accountType}}" 
+                            fallback-selection="student">
+                            <div class="bn-button-select flex" 
+                                type="student">
+                                <iron-icon icon="bn-icons:person"></iron-icon>
+                                Student
+                            </div>
+                            <div class="bn-button-select flex" 
+                                type="tutor">
+                                <iron-icon icon="bn-icons:supervisor"></iron-icon>
+                                Tutor
+                            </div>
+                        </iron-selector>
+                        <!-- Actions -->
                         <section class="actions">
                             <button class="mdc-button mdc-button--raised" on-click="register" disabled$="[[loading]]">
                                 Sign Up
