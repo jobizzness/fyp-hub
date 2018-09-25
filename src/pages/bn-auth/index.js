@@ -25,7 +25,6 @@ import button from '../../components/material/button.html'
 import checkbox from '../../components/material/checkbox.html'
 import '../../components/bn-spinner'
 
-
 import { login, register } from "../../actions/auth.js";
 
 /**
@@ -105,7 +104,7 @@ class BnAuth extends connect(store)(PageViewElement) {
             const email = form.querySelector('input[type=email]').value
             const password = form.querySelector('input[type=password]').value
             this.loading = true;
-            store.dispatch(login(email, password, this))
+            store.dispatch(login({email, password}, this))
         }
     }
 
@@ -121,7 +120,8 @@ class BnAuth extends connect(store)(PageViewElement) {
         if (form && form.reportValidity()) {
             const email = form.querySelector('input[type=email]').value
             const password = form.querySelector('input[type=password]').value
-            store.dispatch(register(email, password, this))
+            const accountType = this.accountType
+            store.dispatch(register({ email, password, accountType}, this))
         }
     }
 

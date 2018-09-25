@@ -1,0 +1,61 @@
+<style>
+    :host{
+        padding: 16px;
+    }
+</style>
+
+<section page="register" selected$="[[is_selected(page, 'register')]]">
+                    <!-- 
+                        ========== Register Form ==============
+                     -->
+                    <form id="formRegister">
+                        <section class="row">
+                            <div class="mdc-text-field text-field mdc-text-field--dense mdc-text-field--box mdc-text-field--with-leading-icon">
+                                <iron-icon class="mdc-text-field__icon" icon="bn-icons:email"></iron-icon>
+                                <input id="email" name="email" type="email" required value="{{email::change}}" class="mdc-text-field__input">
+                                <label class="mdc-floating-label" for="email">Email</label>
+                                <div class="mdc-line-ripple"></div>
+                            </div>
+                        </section>
+                        <section class="row">
+                            <div class="mdc-text-field text-field mdc-text-field--dense mdc-text-field--box mdc-text-field--with-leading-icon">
+                                <iron-icon class="mdc-text-field__icon" icon="bn-icons:key"></iron-icon>
+                                <input type="password" id="password" required value="{{password::change}}" class="mdc-text-field__input">
+                                <label class="mdc-floating-label" for="password">Password</label>
+                                <div class="mdc-line-ripple"></div>
+                            </div>
+                        </section>
+                         <!-- User type -->
+                        <iron-selector
+                            class="row" 
+                            style="margin-top:1em"
+                            attr-for-selected="type" 
+                            selected="{{accountType}}" 
+                            fallback-selection="student">
+                            <div class="bn-button-select flex" 
+                                type="student">
+                                <iron-icon icon="bn-icons:person"></iron-icon>
+                                Student
+                            </div>
+                            <div class="bn-button-select flex" 
+                                type="tutor">
+                                <iron-icon icon="bn-icons:supervisor"></iron-icon>
+                                Tutor
+                            </div>
+                        </iron-selector>
+                        <!-- Actions -->
+                        <section class="actions">
+                            <button class="mdc-button mdc-button--raised" on-click="register" disabled$="[[loading]]">
+                                Sign Up
+                            </button>
+                            <div class="social">
+                            
+                            </div>
+                            <div class="text-block bottom layout horizontal">
+                                <span class="text-small font-weight-semibold">Already a member ?</span>
+                                <span class="flex"></span>
+                                <a href="/auth/login" class="text-black text-small">Login here</a>
+                            </div>
+                        </section>
+                    </form>
+                </section>

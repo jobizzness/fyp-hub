@@ -22,9 +22,29 @@ import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js'
 
 import { store } from '../../store.js'
 import { navigate, updateOffline, updateLayout } from '../../actions/app.js'
-import { fetchUser } from '../../actions/auth.js'
+import { listenAuthChange } from '../../actions/auth.js'
 import template from './template.html'
 import SharedStyles from '../shared-styles.html'
+
+import fb from "firebase/app"
+import "firebase/firestore"
+
+// Initialize Firebase
+let config = {
+	apiKey: "AIzaSyA7MawaD_MRPhoUVe8AxzXH_U5hAt-65gE",
+	authDomain: "fyp-hub.firebaseapp.com",
+	databaseURL: "https://fyp-hub.firebaseio.com",
+	projectId: "fyp-hub",
+	storageBucket: "fyp-hub.appspot.com",
+	messagingSenderId: "336676726576"
+};
+
+window.firebase = fb.initializeApp(config);
+
+const firestore = fb.firestore();
+const settings = {/* your settings... */ timestampsInSnapshots: true };
+firestore.settings(settings);
+
 
 class BnApp extends connect(store)(PolymerElement) {
 	static get template() {
@@ -144,24 +164,13 @@ class BnApp extends connect(store)(PolymerElement) {
 		super.ready()
 		this.$pages = this.shadowRoot.querySelector('#pages')
 
-		store.dispatch(fetchUser())
+		store.dispatch(listenAuthChange())
 		
 	}
 
 	_createProject(){
 		this.$.projectEditor.open();
 	}
-
-	// _didRender(properties, changeList) {
-	// 	if ('_page' in changeList) {
-	// 		const pageTitle = properties.appTitle + ' - ' + changeList._page
-	// 		updateMetadata({
-	// 			title: pageTitle,
-	// 			description: pageTitle
-	// 			// This object also takes an image property, that points to an img src.
-	// 		})
-	// 	}
-	// }
 
 	/**
 	* @desc opens a modal window to display a message
