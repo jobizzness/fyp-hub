@@ -113,13 +113,9 @@
             </div>
             <!-- List of all the discussions -->
             <div class="list">
-                <bn-post-item></bn-post-item>
-                <bn-post-item></bn-post-item>
-                <bn-post-item></bn-post-item>
-                <bn-post-item></bn-post-item>
-                <bn-post-item></bn-post-item>
-                <bn-post-item></bn-post-item>
-                <bn-post-item></bn-post-item>
+                <template is="dom-repeat" items="[[discussions]]" as="discussion">
+                    <bn-post-item data="[[discussion]]"></bn-post-item>
+                </template>
             </div>
         </div>
     </section>

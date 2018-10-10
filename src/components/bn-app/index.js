@@ -165,13 +165,36 @@ class BnApp extends connect(store)(PolymerElement) {
 		this.$pages = this.shadowRoot.querySelector('#pages')
 
 		store.dispatch(listenAuthChange())
-		
 	}
 
 	_createProject(){
 		this.$.projectEditor.open();
 	}
 
+	get categories(){
+		return [
+			{
+				name: 'Databases',
+				value: 'db'
+			},
+			{
+				name: 'PHP',
+				value: 'PHP'
+			},
+			{
+				name: 'Machine Learning',
+				value: 'ml'
+			},
+			{
+				name: 'C++',
+				value: 'c++'
+			},
+			{
+				name: 'ASP.NET',
+				value: 'asp'
+			}
+		]
+	}
 	/**
 	* @desc opens a modal window to display a message
 	* @param string msg - the message to be displayed

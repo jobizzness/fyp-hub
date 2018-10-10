@@ -147,15 +147,9 @@ customElements.define('bn-discussion-editor', class extends mixinBehaviors(
                                     required
                                     value="{{data.category::change}}">
                                     <option value="" disabled selected></option>
-                                    <option value="grains">
-                                        Bread
-                                    </option>
-                                    <option value="vegetables">
-                                        Vegetables
-                                    </option>
-                                    <option value="fruit">
-                                        Fruit
-                                    </option>
+                                    <template is="dom-repeat" items="[[categories]]">
+                                        <option value="[[item.value]]">[[item.name]]</option>
+                                    </template>
                                 </select>
                                 <label class="mdc-floating-label">Select Category</label>
                                 <div class="mdc-line-ripple"></div>
@@ -179,7 +173,7 @@ customElements.define('bn-discussion-editor', class extends mixinBehaviors(
                             <button 
                                 class="mdc-button mdc-button--raised" 
                                 on-click="submit" 
-                                disabled$="[[loading]]">Submit</button>
+                                disabled$="[[loading]]">Post</button>
                         </section>
                     </form>
                 </main>

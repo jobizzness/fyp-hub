@@ -49,21 +49,46 @@ class BnPostItem extends PolymerElement {
                     font-size: 14px;
                     font-weight: 500;
                 }
+                footer{
+                    display: flex;
+                    padding: 1em 3em;
+                    background: #f1f1f1;
+                    border-radius: 46px;
+                    cursor: pointer;
+                    position: relative;
+                }
+                footer .avatar{
+                    height: 25px;
+                    width: 25px;
+                    margin-right: 8px;
+                }
+                .comment-box{
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #888;
+                }
             </style>
             <div class="wrapper">
                 <header class="">
                     <div 
                         class="avatar"
-                        style="background-image: url(https://scontent.fkul13-1.fna.fbcdn.net/v/t1.0-9/379930_2309306767847_1744320365_n.jpg?_nc_cat=0&oh=b8ba51df36418736bf25587b4f160066&oe=5BEA81EE)">
+                        style$="background-image: url([[_formatAvatar(data.owner.avatar)]])">
                         
                     </div>
-                    <h3>Prabu Seteyi</h3>
+                    <h3>[[_formatName(data.owner.name)]]</h3>
                 </header>
                 <div>
-                    <p>I need to ask someone who are really specialized and good in DBA (database), any recommendated guys ? if there ara, pls tag out ,just some question about database . #database<p>
+                    <p>[[data.description]]<p>
                     <a href="#">read more</a>
                 </div>
-            
+                <footer>
+                    <div 
+                        class="avatar"
+                        style$="background-image: url([[_formatAvatar(data.owner.avatar)]])">
+                    </div>
+                    <div class="comment-box">Write a comment...</div>
+                    <paper-ripple></paper-ripple>
+                </footer>
             </div>
         
         `;
@@ -77,6 +102,14 @@ class BnPostItem extends PolymerElement {
             amount: String,
             price: String
         }
+    }
+
+    _formatName(name){
+        return name || 'New User'
+    }
+
+    _formatAvatar(avatar){
+        return avatar || '/assets/avatar.png'
     }
 }
 

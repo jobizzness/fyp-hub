@@ -10,16 +10,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 import { 
   CREATE_DISCUSSION, 
-
+  UPDATE_DISCUSSION_LIST
 } from "../actions/discussion.js";
 
-export const DiscussionReducer = (state = {}, action) => {
+export const discussion = (state = {list: []}, action) => {
   switch (action.type) {
     case CREATE_DISCUSSION:
       //boom
       return state
       break;
-  
+    case UPDATE_DISCUSSION_LIST:
+      return {
+        ...state,
+        list: action.list
+      }
     default:
       return state
   }

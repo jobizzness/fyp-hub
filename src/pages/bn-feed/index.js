@@ -16,12 +16,14 @@ import '../../components/bn-post-item'
 import { store } from '../../store.js'
 import template from './template.html'
 import SharedStyles from '../../components/shared-styles.html'
-import {DiscussionReducer} from '../../reducers/discussion.js'
+
+import { getDiscussions } from "../../actions/discussion.js"
+import { discussion} from '../../reducers/discussion.js'
 
 
 // Initially loaded reducers.
 store.addReducers({
-	DiscussionReducer
+	discussion
 });
 
 /**
@@ -35,7 +37,10 @@ store.addReducers({
 class BnFeed extends connect(store)(PageViewElement) {
 	static get properties() {
 		return {
-
+			discussions:{
+				type: Array,
+				value: []
+			}
 		}
 	}
 
@@ -69,11 +74,13 @@ class BnFeed extends connect(store)(PageViewElement) {
      */
 	ready() {
 		super.ready()
+
+		store.dispatch(getDiscussions())
 		
 	}
 
 	_stateChanged(state){
-                
+		this.discussions = state.discussion.list
 	}
 }
 

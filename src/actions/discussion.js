@@ -10,10 +10,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 import "firebase/firestore"
 
 export const CREATE_DISCUSSION = 'CREATE_DISCUSSION';
+export const UPDATE_DISCUSSION_LIST = 'UPDATE_DISCUSSION_LIST'
 
 export const createDiscussion = (discussion, done) => async (dispatch) => {
 
-  let ref = firebase.firestore().collection('discussion')
+  const ref = firebase.firestore().collection('discussion')
   try {
     const doc = await ref.add(discussion)
     done(doc)
@@ -29,4 +30,29 @@ export const replyDiscussion = (discussion, reply, done) => (dispatch) => {
 
 export const updateDiscussionReply = (discussion, reply, done) => (dispatch) => {
 
+}
+
+export const getDiscussions = () => async (dispatch) => {
+
+  const ref = firebase.firestore().collection('discussion')
+  try {
+    let response = await ref.get()
+    let list = []
+
+    response.forEach(function(doc){
+      list.push({
+        ...doc.data(),
+        id: doc.id
+      })
+    });
+
+    dispatch({
+      type: UPDATE_DISCUSSION_LIST,
+      list
+    })
+
+  } catch (error) {
+    console.log(error)
+  }
+  
 }
