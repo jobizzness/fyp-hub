@@ -103,7 +103,7 @@ customElements.define('bn-discussion-editor', class extends mixinBehaviors(
             </style>
             <div>
                 <header class="toolbar">
-                    <h1 class="title">Order Details</h1>
+                    <h1 class="title">Compose your question</h1>
                     <span class="flex"></span>
                     <button class="mdc-button" dialog-dismiss>
                         <iron-icon icon="bn-icons:close"></iron-icon>
@@ -164,6 +164,10 @@ customElements.define('bn-discussion-editor', class extends mixinBehaviors(
 
     close(){
         this.opened = false;
+    }
+
+    open(){
+        this.opened = true;
     }
 
     // get _focusableNodes() {

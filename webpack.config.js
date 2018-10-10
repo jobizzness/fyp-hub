@@ -95,7 +95,7 @@ const shared = env => {
       },
       historyApiFallback: true,
       port: 3000,
-      host: '0.0.0.0',
+      host: 'localhost',
       disableHostCheck: true
     }
   };

@@ -54,6 +54,7 @@ class BnFeed extends connect(store)(PageViewElement) {
 
 	connectedCallback(){
 		super.connectedCallback()
+		this.$editor = document.querySelector('bn-app').shadowRoot.querySelector('#projectEditor');
 	}
 
 	/**
@@ -61,7 +62,7 @@ class BnFeed extends connect(store)(PageViewElement) {
      */
 	ready() {
 		super.ready()
-		this.$editor = document.getElementById('projectEditor');
+		
 	}
 
 	_stateChanged(state){
