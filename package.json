@@ -79,6 +79,7 @@
   "dependencies": {
     "@material/checkbox": "0.38.0",
     "@material/form-field": "0.38.0",
+    "@material/select": "0.40.1",
     "@material/textfield": "0.38.0",
     "@polymer/app-layout": "^3.0.0-pre.19",
     "@polymer/html-modules-toolkit": "0.0.2",

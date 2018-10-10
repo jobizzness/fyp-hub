@@ -1,4 +1,19 @@
 <style>
+  :root{
+    --app-primary-color: #0dbead;
+    --app-accent-color: #12d4c2;
+    --app-dark-text-color: var(--app-secondary-color);
+    --app-section-odd-color: white;
+    --app-background-color: #F7F8F9;
+    --app-header-text-color: var(--app-dark-text-color);
+    --app-header-selected-color: var(--app-primary-color);
+    --app-drawer-background-color: var(--app-secondary-color);
+    --app-drawer-text-color: var(--app-light-text-color);
+    --app-drawer-selected-color: #78909C;
+
+    /* Text colors */
+    --app-text-dark4: #525252;
+  }
   bn-app{
     display: block;
     --app-drawer-width: 256px;
@@ -181,7 +196,7 @@
   </main>
 </div>
 
-<bn-discussion-editor id="projectEditor"></bn-discussion-editor>
+<bn-discussion-editor id="projectEditor" opened></bn-discussion-editor>
 
 <a href="/auth/login" id="authLink" hidden></a>
 <a href="/" id="homeLink" hidden></a>
