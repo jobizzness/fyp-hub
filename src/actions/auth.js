@@ -38,7 +38,11 @@ export const register = ({email, password, accountType}, listener = null) => (di
 export const listenAuthChange = () => (dispatch) => {
     firebase.auth().onAuthStateChanged(async (auth) => {
         if (auth) {
-            const user = await fetchUser(auth);
+            let user = await fetchUser(auth);
+            user = {
+                id: auth.uid,
+                ...user
+            }
             updateUser(user, dispatch)
         } else {
             updateUser(null, dispatch)

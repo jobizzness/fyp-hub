@@ -3,6 +3,7 @@ import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import { IronOverlayBehavior } from '@polymer/iron-overlay-behavior/iron-overlay-behavior.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
+import { store } from '../store.js'
 import { MDCSelect } from "@material/select";
 import { MDCTextField } from '@material/textfield'
 import { MDCFormField } from '@material/form-field'
@@ -13,6 +14,8 @@ import formField from './material/form-field.html'
 import button from './material/button.html'
 import select from "./material/select.html";
 
+// Actions
+import { createDiscussion } from "../actions/discussion.js";
 
 customElements.define('bn-discussion-editor', class extends mixinBehaviors(
     [IronOverlayBehavior], PolymerElement) {
@@ -140,7 +143,9 @@ customElements.define('bn-discussion-editor', class extends mixinBehaviors(
                     <form>
                         <section class="row">
                             <div class="mdc-select flex">
-                                <select class="mdc-select__native-control">
+                                <select class="mdc-select__native-control"
+                                    required
+                                    value="{{data.category::change}}">
                                     <option value="" disabled selected></option>
                                     <option value="grains">
                                         Bread
@@ -158,7 +163,13 @@ customElements.define('bn-discussion-editor', class extends mixinBehaviors(
                         </section>
                         <section class="row">
                             <div class="mdc-text-field mdc-text-field--textarea flex">
-                                <textarea id="textarea" class="mdc-text-field__input" rows="8" cols="40"></textarea>
+                                <textarea 
+                                    id="textarea" 
+                                    class="mdc-text-field__input" 
+                                    rows="8" 
+                                    required
+                                    value="{{data.description::change}}"
+                                    cols="40"></textarea>
                                 <label for="textarea" class="mdc-floating-label">Enter your question</label>
                             </div>
                         </section>
@@ -167,7 +178,7 @@ customElements.define('bn-discussion-editor', class extends mixinBehaviors(
                         <section class="actions">
                             <button 
                                 class="mdc-button mdc-button--raised" 
-                                on-click="register" 
+                                on-click="submit" 
                                 disabled$="[[loading]]">Submit</button>
                         </section>
                     </form>
@@ -181,6 +192,10 @@ customElements.define('bn-discussion-editor', class extends mixinBehaviors(
             withBackdrop: {
                 type: Boolean,
                 value: true
+            },
+            data:{
+                type: Object,
+                value: {}
             }
         }
     }
@@ -237,6 +252,49 @@ customElements.define('bn-discussion-editor', class extends mixinBehaviors(
 
     open(){
         this.opened = true;
+    }
+
+    submit(e){
+        e.preventDefault();
+        
+        const form = e.target.closest('form');
+        if(!form.reportValidity()) return;
+        this._create()
+        
+        
+    }
+
+    _create(){
+        const data = {
+            category: this.data.category,
+            description: this.data.description,
+            owner: {
+                name: this.user.name,
+                avatar: this.user.avatar || null,
+                id: this.user.id
+            },
+            replies: []
+        }
+        this.loading = true;
+        store.dispatch(createDiscussion(data, this.whenDone.bind(this)));
+    }
+
+    whenDone(success, error){
+        this.loading = false;
+        this.data = {}
+
+        if(success) this.success(success)
+        if(error) this.error(error)
+    }
+
+    success(data){
+        this.opened = false;
+        console.log("Document successfully written!", data);
+    }
+
+    error(data){
+        alert('an error occured, check the console')
+        console.log("error occured!", data);
     }
 
     // get _focusableNodes() {
