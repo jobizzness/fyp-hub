@@ -114,7 +114,11 @@
             <!-- List of all the discussions -->
             <div class="list">
                 <template is="dom-repeat" items="[[discussions]]" as="discussion">
-                    <bn-post-item data="[[discussion]]"></bn-post-item>
+                    <bn-post-item 
+                        data="[[discussion]]"
+                        avatar="[[user.avatar]]"
+                        on-view-post="_view"
+                        on-click="_select"></bn-post-item>
                 </template>
             </div>
         </div>

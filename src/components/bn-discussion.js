@@ -17,7 +17,7 @@ import select from "./material/select.html";
 // Actions
 import { createDiscussion, getDiscussions } from "../actions/discussion.js";
 
-customElements.define('bn-discussion-editor', class extends mixinBehaviors(
+customElements.define('bn-discussion', class extends mixinBehaviors(
     [IronOverlayBehavior], PolymerElement) {
     static get template() {
         return html`
@@ -133,49 +133,14 @@ customElements.define('bn-discussion-editor', class extends mixinBehaviors(
             </style>
             <div>
                 <header class="toolbar">
-                    <h1 class="title">Compose your question</h1>
+                    <h1 class="title">Owner says:</h1>
                     <span class="flex"></span>
                     <button class="mdc-button" dialog-dismiss>
                         <iron-icon icon="bn-icons:close"></iron-icon>
                     </button>
                 </header>
                 <main>
-                    <form>
-                        <section class="row">
-                            <div class="mdc-select flex">
-                                <select class="mdc-select__native-control"
-                                    required
-                                    value="{{data.category::change}}">
-                                    <option value="" disabled selected></option>
-                                    <template is="dom-repeat" items="[[categories]]">
-                                        <option value="[[item.value]]">[[item.name]]</option>
-                                    </template>
-                                </select>
-                                <label class="mdc-floating-label">Select Category</label>
-                                <div class="mdc-line-ripple"></div>
-                            </div>
-                        </section>
-                        <section class="row">
-                            <div class="mdc-text-field mdc-text-field--textarea flex">
-                                <textarea 
-                                    id="textarea" 
-                                    class="mdc-text-field__input" 
-                                    rows="8" 
-                                    required
-                                    value="{{data.description::change}}"
-                                    cols="40"></textarea>
-                                <label for="textarea" class="mdc-floating-label">Enter your question</label>
-                            </div>
-                        </section>
-
-                        <!-- Actions -->
-                        <section class="actions">
-                            <button 
-                                class="mdc-button mdc-button--raised" 
-                                on-click="submit" 
-                                disabled$="[[loading]]">Post</button>
-                        </section>
-                    </form>
+                   
                 </main>
             </div>
 `;
@@ -187,7 +152,7 @@ customElements.define('bn-discussion-editor', class extends mixinBehaviors(
                 type: Boolean,
                 value: true
             },
-            data:{
+            data: {
                 type: Object,
                 value: {}
             }
@@ -202,10 +167,10 @@ customElements.define('bn-discussion-editor', class extends mixinBehaviors(
         this.addEventListener('iron-overlay-canceled', (e) => this._onCancel(e));
     }
 
-    connectedCallback(){
+    connectedCallback() {
         super.connectedCallback()
 
-        this.select = new MDCSelect(this.shadowRoot.querySelector('.mdc-select'))
+        // this.select = new MDCSelect(this.shadowRoot.querySelector('.mdc-select'))
         this.shadowRoot.querySelectorAll('.mdc-text-field').forEach((node) => new MDCTextField(node));
         this.shadowRoot.querySelectorAll('.mdc-form-field').forEach((node) => new MDCFormField(node));
     }
@@ -240,25 +205,25 @@ customElements.define('bn-discussion-editor', class extends mixinBehaviors(
         }
     }
 
-    close(){
+    close() {
         this.opened = false;
     }
 
-    open(){
+    open() {
         this.opened = true;
     }
 
-    submit(e){
+    submit(e) {
         e.preventDefault();
-        
+
         const form = e.target.closest('form');
-        if(!form.reportValidity()) return;
+        if (!form.reportValidity()) return;
         this._create()
-        
-        
+
+
     }
 
-    _create(){
+    _create() {
         const data = {
             category: this.data.category,
             description: this.data.description,
@@ -273,21 +238,21 @@ customElements.define('bn-discussion-editor', class extends mixinBehaviors(
         store.dispatch(createDiscussion(data, this.whenDone.bind(this)));
     }
 
-    whenDone(success, error){
+    whenDone(success, error) {
         this.loading = false;
         this.data = {}
 
-        if(success) this.success(success)
-        if(error) this.error(error)
+        if (success) this.success(success)
+        if (error) this.error(error)
     }
 
-    success(data){
+    success(data) {
         this.opened = false;
         store.dispatch(getDiscussions())
         console.log("Document successfully written!", data);
     }
 
-    error(data){
+    error(data) {
         alert('an error occured, check the console')
         console.log("error occured!", data);
     }

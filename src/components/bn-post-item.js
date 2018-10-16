@@ -81,12 +81,12 @@ class BnPostItem extends PolymerElement {
                     <p>[[data.description]]<p>
                     <a href="#">read more</a>
                 </div>
-                <footer>
+                <footer on-click="view">
                     <div 
                         class="avatar"
-                        style$="background-image: url([[_formatAvatar(data.owner.avatar)]])">
+                        style$="background-image: url([[_formatAvatar(avatar)]])">
                     </div>
-                    <div class="comment-box">Write a comment...</div>
+                    <div class="comment-box">Write a reply...</div>
                     <paper-ripple></paper-ripple>
                 </footer>
             </div>
@@ -103,7 +103,9 @@ class BnPostItem extends PolymerElement {
             price: String
         }
     }
-
+    view(){
+        this.dispatchEvent(new CustomEvent('view-post', {detail: this.data}))
+    }
     _formatName(name){
         return name || 'New User'
     }

@@ -12,6 +12,7 @@ import { PageViewElement } from '../../components/page-view-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 
 import '../../components/discussion-editor.js'
+import '../../components/bn-discussion.js'
 import '../../components/bn-post-item'
 import { store } from '../../store.js'
 import template from './template.html'
@@ -40,6 +41,10 @@ class BnFeed extends connect(store)(PageViewElement) {
 			discussions:{
 				type: Array,
 				value: []
+			},
+			selected: {
+				type: Object,
+				value: {}
 			}
 		}
 	}
@@ -64,9 +69,18 @@ class BnFeed extends connect(store)(PageViewElement) {
 		this.$editor.open();
 	}
 
+	_select(e){
+		this.$viewer.data = e.target.data
+	}
+	_view(e){
+		console.log(e)
+		this.$viewer.open();
+	}
+
 	connectedCallback(){
 		super.connectedCallback()
 		this.$editor = document.querySelector('bn-app').shadowRoot.querySelector('#projectEditor');
+		this.$viewer = document.querySelector('bn-app').shadowRoot.querySelector('#discussionOverlay');
 	}
 
 	/**
@@ -81,6 +95,7 @@ class BnFeed extends connect(store)(PageViewElement) {
 
 	_stateChanged(state){
 		this.discussions = state.discussion.list
+		this.user = state.app.user
 	}
 }
 

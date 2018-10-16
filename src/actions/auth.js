@@ -79,7 +79,8 @@ const createUser = async (ref, auth) => {
     await ref.set({
         name: auth.displayName,
         email: auth.email,
-        country: "MY"
+        country: "MY",
+        avatar: null
     });
 
     return ref.get();
