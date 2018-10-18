@@ -14,6 +14,7 @@ import formField from './material/form-field.html'
 import button from './material/button.html'
 import select from "./material/select.html";
 
+import './bn-post-reply.js'
 // Actions
 import { createDiscussion, getDiscussions } from "../actions/discussion.js";
 
@@ -25,7 +26,8 @@ customElements.define('bn-discussion', class extends mixinBehaviors(
                 SharedStyles +
                 textField +
                 button +
-                formField + select
+                formField + 
+                select
             ])}
             <style>
             :host {
@@ -106,18 +108,15 @@ customElements.define('bn-discussion', class extends mixinBehaviors(
                 color: white;
                 font-weight: 400;
             }
-            .flex{
-                flex: 1;
+            main>*{
+                max-width: 800px;
+                margin: 1em auto;
             }
-            main{
-                padding: 2em;
+            .respondants>*, bn-post-item{
+                width: 100%;
             }
-            form{
-                max-width: 700px;
-                margin: 0 auto;
-            }
-            form>*{
-                margin-bottom: 2em;
+            bn-post-item{
+                
             }
             @media (max-width: 767px) {
                 :host {
@@ -140,7 +139,19 @@ customElements.define('bn-discussion', class extends mixinBehaviors(
                     </button>
                 </header>
                 <main>
-                   
+                    <div class="the-main-post layout vertical center-center">
+                        <bn-post-item 
+                            data="[[data]]"
+                            can-reply="false"
+                            avatar="[[user.avatar]]"></bn-post-item>
+                    </div>
+                    <div class="respondants layout vertical center-center">
+                        <template is="dom-repeat" items="[[data.replies]]">
+                            <bn-post-reply 
+                                data="[[item]]"
+                                avatar="[[user.avatar]]"></bn-post-reply>
+                        </template>
+                    </div>
                 </main>
             </div>
 `;
@@ -165,6 +176,7 @@ customElements.define('bn-discussion', class extends mixinBehaviors(
         this.setAttribute('aria-modal', 'true');
         this.addEventListener('transitionend', (e) => this._transitionEnd(e));
         this.addEventListener('iron-overlay-canceled', (e) => this._onCancel(e));
+        this.opened = true;
     }
 
     connectedCallback() {
@@ -176,12 +188,15 @@ customElements.define('bn-discussion', class extends mixinBehaviors(
     }
 
     _renderOpened() {
+        window.scrollTo(0, 0)
+        this.dispatchEvent(new CustomEvent('before-open', {}));
         this.restoreFocusOnClose = true;
-        //this.backdropElement.style.display = 'none';
         this.classList.add('opened');
     }
 
     _renderClosed() {
+        window.scrollTo(0, 0)
+        this.dispatchEvent(new CustomEvent('before-open', {}));
         this.classList.remove('opened');
     }
 

@@ -11,19 +11,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 
 // This element is *not* connected to the redux store.
-class BnPostItem extends PolymerElement {
+class BnPostReply extends PolymerElement {
 
-    static get template(){
+    static get template() {
         return html`
             <style>
                 :host{
                     display: block;
                     margin: 24px 0;
                     padding: 16px;
-                    background-color: white;
+                    background-color: #eee;
                     min-height: 150px;
+                    border-radius: 16px;
                     max-width: 700px;
-                    box-shadow: 0 8px 16px 0 rgba(40,40,90,.09), 0 3px 6px 0 rgba(0,0,0,.065);
                 }
                 p{
                     font-size: 14px;
@@ -79,14 +79,6 @@ class BnPostItem extends PolymerElement {
                 <div>
                     <p>[[data.description]]<p>
                 </div>
-                <footer on-click="view">
-                    <div 
-                        class="avatar"
-                        style$="background-image: url([[_formatAvatar(avatar)]])">
-                    </div>
-                    <div class="comment-box">Write a reply...</div>
-                    <paper-ripple></paper-ripple>
-                </footer>
             </div>
         `;
     }
@@ -94,24 +86,24 @@ class BnPostItem extends PolymerElement {
     static get properties() {
         return {
             data: {
-             type: Object   
+                type: Object
             },
             amount: String,
             price: String
         }
     }
-    
-    view(){
-        this.dispatchEvent(new CustomEvent('view-post', {detail: this.data}))
+
+    view() {
+        this.dispatchEvent(new CustomEvent('view-post', { detail: this.data }))
     }
 
-    _formatName(name){
+    _formatName(name) {
         return name || 'New User'
     }
 
-    _formatAvatar(avatar){
+    _formatAvatar(avatar) {
         return avatar || '/assets/avatar.png'
     }
 }
 
-window.customElements.define('bn-post-item', BnPostItem);
+window.customElements.define('bn-post-reply', BnPostReply);

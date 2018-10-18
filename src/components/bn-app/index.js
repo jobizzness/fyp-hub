@@ -171,6 +171,12 @@ class BnApp extends connect(store)(PolymerElement) {
 		this.$.projectEditor.open();
 	}
 
+	_toggleBodyScroll(){
+		this.body = this.body || document.getElementsByTagName('body')[0]
+		this.body.classList.toggle('no-scroll')
+	}
+
+
 	get categories(){
 		return [
 			{
