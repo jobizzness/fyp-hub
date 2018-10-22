@@ -2,87 +2,116 @@
     :host{
         padding: 16px;
     }
-    .card{
-        background-color: white;
-        box-shadow: 0 4px 9px 0 rgba(40,40,90,.09), 0 1px 6px 0 rgba(0,0,0,.065);
-        min-height: 100px;
-        margin-bottom: 24px;
+    .page-title{
+        font-size: 21px;
+        font-weight: 500;
+        color: #6d6d6d;
     }
-    .profile-avatar--wrapper{
-
+    .profile-info--wrapper{
+        border-radius: 4px;
+        margin: 2em 0;
     }
-    .profile-info{
-        padding-left: 24px;
-    }
-    .user-profile--avatar{
-        width: 200px;
+    .user-profile--avatar {
         height: 200px;
+        width: 200px;
+        border-radius: 50%;
+        background-color: #eee;
+        margin-bottom: 16px;
+        overflow: hidden;
         background-size: cover;
     }
-    .course-info p{
-        margin: 12px 0;
-        font-size: 14px;
-        color: #5d5d5d;
+    .profile-info--wrapper>div:nth-child(2){
+        background-color: white;
     }
-    .course-info p span{
-        font-weight: 500;
-        color: #0dbead;
+    .profile-info--wrapper>div:first-child{
+        background-color: #eee;
     }
-    .profile-name{
-        font-size: 2.5rem;
+    form{
+        padding: 3em;
+    }
+    form h1{
+        margin: 1em 0;
         font-weight: 300;
+        font-size: 1.3rem;
     }
-    .profile-bio{
-        font-size: 14px;
-        color: #656565;
-    }
-    .profile-social-icons>*{
-        margin: 16px 8px;
-        text-decoration: none;
+    .actions{
+        margin: 3em 0;
     }
 </style>
 
-<div class="layout vertical content pad">
-    <section class="card pad">
-        <div class="layout horizontal pad">
-            <div class="profile-avatar--wrapper">
-                <div class="user-profile--avatar" style="background-image: url(https://scontent.fkul13-1.fna.fbcdn.net/v/t1.0-9/10849785_869874446370183_7474591349200861919_n.jpg?_nc_cat=0&oh=73b2f709e0f38e62165e1e684e6b85e0&oe=5BDBDCB6)">
-                    <img src="https://pbs.twimg.com/profile_images/972460944994418688/zipc-DNs_400x400.jpg" alt="" hidden="" title="">
+    <div class="page-wrapper pad">
+        <header class="text-center">
+            <h1 class="page-title">Profile</h1>
+        </header>
+        <section class="profile-info--wrapper layout horizontal pad">
+            <div class="flex layout vertical pad text-center center-center">
+                <div class="user-profile">
+                    <div class="user-profile--avatar" style="background-image: url(https://pbs.twimg.com/profile_images/972460944994418688/zipc-DNs_400x400.jpg)">
+                        <img src="https://pbs.twimg.com/profile_images/972460944994418688/zipc-DNs_400x400.jpg" alt="" hidden="" title="">
+                    </div>
+                    <!-- Avatar -->
+                    <h3 class="user-profile--name">Matarr Jobe</h3>
+                    <h4 class="user-profile--nickname">@Jobizzness</h4>
                 </div>
             </div>
-            <div class="flex profile-info">
-                <h1 class="profile-name">Matarr Jobe</h1>
-                <div class="course-info">
-                    <p><span>Intake/Class Code: </span>UC3F1802</p>
-                    <p><span>Program: </span>BSC (Hons) in Computer Science (CS)</p>
-                    <p><span>School: </span> Computing and Technology</p>
-                </div>
-                <p class="profile-bio">Full stack (Frontend & Backend) web developer, deeply passionate about the future web. Experienced in JavaScript,
-                Angular, React, NodeJS, PolymerJS, Web Components, PHP, and Laravel. Always looking for ways to improve myself and
-                others around me. I put Mobile first. HTML5 and CSS are my best friends. Passionate founder currently experimenting
-                with customer driven eCommerce applications. If you’d like to know more, or to discuss any opportunities, please do not
-                hesitate to reach out to me at jobizzness@afrodapp.com.</p>
-                <div class="profile-social-icons">
-                    <a href="#">
-                        <iron-icon src="/assets/icons/linkedin.svg"></iron-icon>
-                    </a>
-                    <a href="#"><iron-icon src="/assets/icons/twitter.svg"></iron-icon></a>
-                    <a href="#"><iron-icon src="/assets/icons/facebook.svg"></iron-icon></a>
-                    <a href="#">
-                        <iron-icon src="/assets/icons/whatsapp.svg"></iron-icon>
-                    </a>
-                </div>
+            <div class="flex">
+                <form id="profileForm">
+                    <section class="row">
+                        <div class="mdc-text-field text-field mdc-text-field--dense mdc-text-field--box mdc-text-field--with-leading-icon">
+                            <iron-icon class="mdc-text-field__icon" icon="bn-icons:person"></iron-icon>
+                            <input id="email" name="email" type="email" required value="{{email::change}}" class="mdc-text-field__input">
+                            <label class="mdc-floating-label" for="email">Name</label>
+                            <div class="mdc-line-ripple"></div>
+                        </div>
+                    </section>
+                    <section class="row">
+                        <div class="mdc-text-field text-field mdc-text-field--dense mdc-text-field--box mdc-text-field--with-leading-icon">
+                            <iron-icon class="mdc-text-field__icon" icon="bn-icons:email"></iron-icon>
+                            <input id="email" name="email" type="email" required value="{{email::change}}" class="mdc-text-field__input">
+                            <label class="mdc-floating-label" for="email">Email</label>
+                            <div class="mdc-line-ripple"></div>
+                        </div>
+                    </section>
+                    
+                    <section class="row">
+                        <div class="mdc-text-field mdc-text-field--textarea flex">
+                                <textarea 
+                                    id="textarea" 
+                                    class="mdc-text-field__input" 
+                                    rows="8" 
+                                    required
+                                    value="{{data.description::change}}"
+                                    cols="40"></textarea>
+                                <label for="textarea" class="mdc-floating-label">Enter your question</label>
+                            </div>
+                    </section>
+                    
+                    <h1>Update Password</h1>
+                    <section class="row">
+                        <div class="mdc-text-field text-field mdc-text-field--dense mdc-text-field--box mdc-text-field--with-leading-icon">
+                            <iron-icon class="mdc-text-field__icon" icon="bn-icons:key"></iron-icon>
+                            <input type="password" id="password" required value="{{password::change}}" class="mdc-text-field__input">
+                            <label class="mdc-floating-label" for="password">Password</label>
+                            <div class="mdc-line-ripple"></div>
+                        </div>
+                    </section>
+                    <section class="row">
+                        <div class="mdc-text-field text-field mdc-text-field--dense mdc-text-field--box mdc-text-field--with-leading-icon">
+                            <iron-icon class="mdc-text-field__icon" icon="bn-icons:key"></iron-icon>
+                            <input type="password" id="password" required value="{{password::change}}" class="mdc-text-field__input">
+                            <label class="mdc-floating-label" for="password">Password</label>
+                            <div class="mdc-line-ripple"></div>
+                        </div>
+                    </section>
+                    <!-- Actions -->
+                    <section class="actions pad">
+                        <paper-button class="accent-button rounded-slightly create-btn">
+                            Update
+                        </paper-button>
+                    </section>
+                </form>
             </div>
-        </div>
-    </section>
-
-    <!-- Posts -->
-    <section class="card pad">
-
-    </section>
-
-    <!-- FYP Presentation video if a student and has that -->
-    <section class="card pad">
+        </section>
+    </div>
     
-    </section>
 </div>

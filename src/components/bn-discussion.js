@@ -176,7 +176,6 @@ customElements.define('bn-discussion', class extends mixinBehaviors(
         this.setAttribute('aria-modal', 'true');
         this.addEventListener('transitionend', (e) => this._transitionEnd(e));
         this.addEventListener('iron-overlay-canceled', (e) => this._onCancel(e));
-        this.opened = true;
     }
 
     connectedCallback() {

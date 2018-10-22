@@ -14,7 +14,10 @@ import { connect } from 'pwa-helpers/connect-mixin.js';
 import { store } from '../../store.js';
 import template from './template.html';
 import SharedStyles from '../../components/shared-styles.html'
-
+import textField from '../../components/material/textfield.html'
+import formField from '../../components/material/form-field.html'
+import button from '../../components/material/button.html'
+import checkbox from '../../components/material/checkbox.html'
 /**
  * `bn-project` Description
  *
@@ -33,7 +36,11 @@ class BnProfile extends connect(store)(PageViewElement) {
     static get template() {
         return html([
             template +
-            SharedStyles
+            SharedStyles +
+            textField +
+            button +
+            formField +
+            checkbox
         ]);
     }
 
