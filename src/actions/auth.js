@@ -35,6 +35,11 @@ export const register = ({email, password, accountType}, listener = null) => (di
    
 }
 
+/**
+* @desc opens a modal window to display a message
+* @param string msg - the message to be displayed
+* @return bool - success or failure
+*/
 export const listenAuthChange = () => (dispatch) => {
     firebase.auth().onAuthStateChanged(async (auth) => {
         if (auth) {
@@ -48,6 +53,23 @@ export const listenAuthChange = () => (dispatch) => {
             updateUser(null, dispatch)
         }
     });
+}
+
+/**
+* @desc opens a modal window to display a message
+* @param string msg - the message to be displayed
+* @return bool - success or failure
+*/
+export const updateAccount = (data, done) => async (dispatch) => {
+    const ref = await firebase.firestore().doc(`users/${data.id}`)
+    try {
+        await ref.set(data)
+        const user = await ref.get()
+        updateUser(user, dispatch)
+        done(user)
+    } catch (error) {
+        done(null, error)
+    }
 }
 
 const fetchUser = async (auth) => {

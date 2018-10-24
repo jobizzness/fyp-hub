@@ -66,22 +66,23 @@ class BnPostItem extends PolymerElement {
                     font-weight: 500;
                     color: #888;
                 }
+                [hidden]{
+                    display: none;
+                }
             </style>
             <div class="wrapper">
                 <header class="">
                     <div 
                         class="avatar"
                         style$="background-image: url([[_formatAvatar(data.owner.avatar)]])">
-                        
                     </div>
                     <h3>[[_formatName(data.owner.name)]]</h3>
                 </header>
                 <div>
                     <p>[[data.description]]<p>
                 </div>
-                <footer on-click="view">
-                    <div 
-                        class="avatar"
+                <footer on-click="view" hidden$="[[hideReply]]">
+                    <div class="avatar"
                         style$="background-image: url([[_formatAvatar(avatar)]])">
                     </div>
                     <div class="comment-box">Write a reply...</div>
@@ -97,7 +98,11 @@ class BnPostItem extends PolymerElement {
              type: Object   
             },
             amount: String,
-            price: String
+            price: String,
+            hideReply: {
+                type: Boolean,
+                reflectToAttribute: true
+            }
         }
     }
     

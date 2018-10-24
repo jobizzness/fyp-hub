@@ -24,7 +24,7 @@ export const createDiscussion = (discussion, done) => async (dispatch) => {
   
 }
 
-export const replyDiscussion = (discussion, reply, done) => (dispatch) => {
+export const createReply = (discussion, reply, done) => async (dispatch) => {
 
 }
 

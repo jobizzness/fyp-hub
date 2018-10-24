@@ -17,7 +17,7 @@ import select from "./material/select.html";
 // Actions
 import { createDiscussion, getDiscussions } from "../actions/discussion.js";
 
-customElements.define('bn-discussion-editor', class extends mixinBehaviors(
+customElements.define('bn-project-editor', class extends mixinBehaviors(
     [IronOverlayBehavior], PolymerElement) {
     static get template() {
         return html`
@@ -135,7 +135,9 @@ customElements.define('bn-discussion-editor', class extends mixinBehaviors(
                 <header class="toolbar">
                     <h1 class="title">Compose your question</h1>
                     <span class="flex"></span>
-                    <paper-icon-button icon="bn-icons:close"></paper-icon-button>
+                    <button class="mdc-button" dialog-dismiss>
+                        <iron-icon icon="bn-icons:close"></iron-icon>
+                    </button>
                 </header>
                 <main>
                     <form>
@@ -185,7 +187,7 @@ customElements.define('bn-discussion-editor', class extends mixinBehaviors(
                 type: Boolean,
                 value: true
             },
-            data:{
+            data: {
                 type: Object,
                 value: {}
             }
@@ -200,7 +202,7 @@ customElements.define('bn-discussion-editor', class extends mixinBehaviors(
         this.addEventListener('iron-overlay-canceled', (e) => this._onCancel(e));
     }
 
-    connectedCallback(){
+    connectedCallback() {
         super.connectedCallback()
 
         this.select = new MDCSelect(this.shadowRoot.querySelector('.mdc-select'))
@@ -241,25 +243,23 @@ customElements.define('bn-discussion-editor', class extends mixinBehaviors(
         }
     }
 
-    close(){
+    close() {
         this.opened = false;
     }
 
-    open(){
+    open() {
         this.opened = true;
     }
 
-    submit(e){
+    submit(e) {
         e.preventDefault();
-        
+
         const form = e.target.closest('form');
-        if(!form.reportValidity()) return;
+        if (!form.reportValidity()) return;
         this._create()
-        
-        
     }
 
-    _create(){
+    _create() {
         const data = {
             category: this.data.category,
             description: this.data.description,
@@ -274,21 +274,21 @@ customElements.define('bn-discussion-editor', class extends mixinBehaviors(
         store.dispatch(createDiscussion(data, this.whenDone.bind(this)));
     }
 
-    whenDone(success, error){
+    whenDone(success, error) {
         this.loading = false;
         this.data = {}
 
-        if(success) this.success(success)
-        if(error) this.error(error)
+        if (success) this.success(success)
+        if (error) this.error(error)
     }
 
-    success(data){
+    success(data) {
         this.opened = false;
         store.dispatch(getDiscussions())
         console.log("Document successfully written!", data);
     }
 
-    error(data){
+    error(data) {
         alert('an error occured, check the console')
         console.log("error occured!", data);
     }

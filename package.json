@@ -94,6 +94,7 @@
     "@polymer/paper-dialog": "3.0.0-pre.21",
     "@polymer/paper-icon-button": "3.0.0-pre.21",
     "@polymer/paper-progress": "3.0.0-pre.21",
+    "@polymer/paper-spinner": "3.0.1",
     "@polymer/polymer": "3.0.0",
     "@webcomponents/webcomponentsjs": "^2.0.0",
     "firebase": "5.4.1",

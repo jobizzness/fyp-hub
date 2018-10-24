@@ -17,13 +17,12 @@ class BnPostReply extends PolymerElement {
         return html`
             <style>
                 :host{
-                    display: block;
-                    margin: 24px 0;
+                    margin: -30px 0;
                     padding: 16px;
-                    background-color: #eee;
+                    background-color: white;
                     min-height: 150px;
                     border-radius: 16px;
-                    max-width: 700px;
+                    max-width: 620px;
                 }
                 p{
                     font-size: 14px;
@@ -61,23 +60,16 @@ class BnPostReply extends PolymerElement {
                     width: 25px;
                     margin-right: 8px;
                 }
-                .comment-box{
-                    font-size: 14px;
-                    font-weight: 500;
-                    color: #888;
-                }
             </style>
             <div class="wrapper">
                 <header class="">
-                    <div 
-                        class="avatar"
+                    <div class="avatar"
                         style$="background-image: url([[_formatAvatar(data.owner.avatar)]])">
-                        
                     </div>
                     <h3>[[_formatName(data.owner.name)]]</h3>
                 </header>
                 <div>
-                    <p>[[data.description]]<p>
+                    <p>[[data.text]]<p>
                 </div>
             </div>
         `;
@@ -90,6 +82,7 @@ class BnPostReply extends PolymerElement {
             },
             amount: String,
             price: String
+            
         }
     }
 

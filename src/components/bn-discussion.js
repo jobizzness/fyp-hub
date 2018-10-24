@@ -16,7 +16,7 @@ import select from "./material/select.html";
 
 import './bn-post-reply.js'
 // Actions
-import { createDiscussion, getDiscussions } from "../actions/discussion.js";
+import { createReply, getDiscussion } from "../actions/discussion.js";
 
 customElements.define('bn-discussion', class extends mixinBehaviors(
     [IronOverlayBehavior], PolymerElement) {
@@ -115,8 +115,16 @@ customElements.define('bn-discussion', class extends mixinBehaviors(
             .respondants>*, bn-post-item{
                 width: 100%;
             }
-            bn-post-item{
-                
+            bn-post-reply, .reply-wrapper{
+                padding-left: 4em;
+            }
+            .reply-wrapper>div{
+                width: 100%;
+                margin-bottom: 2em;
+            }
+            .reply-wrapper{
+                max-width: 643px;
+                margin-top: -3em;
             }
             @media (max-width: 767px) {
                 :host {
@@ -134,15 +142,13 @@ customElements.define('bn-discussion', class extends mixinBehaviors(
                 <header class="toolbar">
                     <h1 class="title">Owner says:</h1>
                     <span class="flex"></span>
-                    <button class="mdc-button" dialog-dismiss>
-                        <iron-icon icon="bn-icons:close"></iron-icon>
-                    </button>
+                    <paper-icon-button icon="bn-icons:close"></paper-icon-button>
                 </header>
                 <main>
                     <div class="the-main-post layout vertical center-center">
                         <bn-post-item 
                             data="[[data]]"
-                            can-reply="false"
+                            hide-reply="false"
                             avatar="[[user.avatar]]"></bn-post-item>
                     </div>
                     <div class="respondants layout vertical center-center">
@@ -151,6 +157,23 @@ customElements.define('bn-discussion', class extends mixinBehaviors(
                                 data="[[item]]"
                                 avatar="[[user.avatar]]"></bn-post-reply>
                         </template>
+                    </div>
+                    <div class="reply-wrapper">
+                        <div class="mdc-text-field mdc-text-field--textarea flex">
+                            <textarea 
+                                id="textarea" 
+                                class="mdc-text-field__input" 
+                                rows="2" 
+                                required
+                                value="{{reply}}"
+                                cols="40"></textarea>
+                            <label for="textarea" class="mdc-floating-label">Enter your reply</label>
+                        </div>
+                        <div class="layout horizontal end-justified">
+                            <paper-button class="accent-button rounded-slightly create-btn" disabled="[[loading]]" on-click="_reply">
+                                Reply
+                            </paper-button>
+                        </div>
                     </div>
                 </main>
             </div>
@@ -223,38 +246,27 @@ customElements.define('bn-discussion', class extends mixinBehaviors(
         this.opened = false;
     }
 
-    open() {
+    open(data) {
         this.opened = true;
     }
 
-    submit(e) {
-        e.preventDefault();
-
-        const form = e.target.closest('form');
-        if (!form.reportValidity()) return;
-        this._create()
-
-
-    }
-
-    _create() {
-        const data = {
-            category: this.data.category,
-            description: this.data.description,
-            owner: {
-                name: this.user.name,
-                avatar: this.user.avatar || null,
-                id: this.user.id
-            },
-            replies: []
+    _reply() {
+        if (this.reply && this.data) {
+            const reply = {
+                post: this.data,
+                text: this.reply,
+                name: '',
+                user_id: '',
+                avatar: '',
+            }
+            this.loading = true;
+            store.dispatch(createReply(this.data, reply, this.whenDone.bind(this)));
         }
-        this.loading = true;
-        store.dispatch(createDiscussion(data, this.whenDone.bind(this)));
     }
 
     whenDone(success, error) {
         this.loading = false;
-        this.data = {}
+        this.reply = ''
 
         if (success) this.success(success)
         if (error) this.error(error)
@@ -262,7 +274,7 @@ customElements.define('bn-discussion', class extends mixinBehaviors(
 
     success(data) {
         this.opened = false;
-        store.dispatch(getDiscussions())
+        //store.dispatch(getDiscussions())
         console.log("Document successfully written!", data);
     }
 

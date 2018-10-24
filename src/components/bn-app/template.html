@@ -162,19 +162,13 @@
           on-click="_createProject">
           <iron-icon icon="bn-icons:create" class="mar-l-r-8"></iron-icon> Create Project
         </paper-button>
-
+        <!-- Links -->
         <a href="/" class="nav-item" active$="[[is_selected('feed', page)]]">
           <iron-icon icon="bn-icons:timeline" class="mar-l-r-8"></iron-icon> Discussions
           <paper-ripple></paper-ripple>
         </a>
-
         <a href="/projects/" class="nav-item" active$="[[is_selected('projects', page)]]">
           <iron-icon icon="bn-icons:project" class="mar-l-r-8"></iron-icon> My Projects
-          <paper-ripple></paper-ripple>
-        </a>
-
-        <a href="/profile/" class="nav-item" active$="[[is_selected('profile_images', page)]]">
-          <iron-icon icon="bn-icons:person" class="mar-l-r-8"></iron-icon> My Profile
           <paper-ripple></paper-ripple>
         </a>
         <a href="/account/" class="nav-item" active$="[[is_selected('account', page)]]">
@@ -198,16 +192,18 @@
 <bn-discussion-editor 
   user="[[_user]]" 
   categories="[[categories]]"
+  on-before-open="_toggleBodyScroll"
   id="projectEditor"></bn-discussion-editor>
 
 <bn-discussion id="discussionOverlay"
   on-before-open="_toggleBodyScroll"
   data="activeDiscussion"></bn-discussion>
 
+<bn-project-editor 
+  user="[[_user]]" 
+  on-before-open="_toggleBodyScroll"
+  categories="[[categories]]" 
+  id="projectEditor"></bn-project-editor>
+
 <a href="/auth/login" id="authLink" hidden></a>
 <a href="/" id="homeLink" hidden></a>
-<!-- <footer>
-  <p>Made with &lt;3 by the Polymer team.</p>
-</footer> -->
-<!-- <snack-bar active?="${_snackbarOpened}">
-  You are now ${_offline ? 'offline' : 'online'}.</snack-bar> -->

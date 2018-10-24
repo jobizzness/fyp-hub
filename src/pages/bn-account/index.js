@@ -16,6 +16,7 @@ import { MDCTextField } from '@material/textfield'
 import { MDCCheckbox } from '@material/checkbox'
 import { MDCFormField } from '@material/form-field'
 import '@polymer/iron-selector/iron-selector.js'
+import '@polymer/paper-spinner/paper-spinner.js'
 
 import template from './template.html';
 import SharedStyles from '../../components/shared-styles.html'
@@ -23,6 +24,8 @@ import textField from '../../components/material/textfield.html'
 import formField from '../../components/material/form-field.html'
 import button from '../../components/material/button.html'
 import checkbox from '../../components/material/checkbox.html'
+import firebase from '@firebase/app';
+import { updateAccount} from '../../actions/auth.js'
 
 /**
  * `bn-project` Description
@@ -74,6 +77,35 @@ class BnAccount extends connect(store)(PageViewElement) {
         this.shadowRoot.querySelectorAll('.mdc-form-field').forEach((node) => new MDCFormField(node));
     }
 
+    async submit(e){
+        let form = e.target.closest('form')
+        if(!form && form.reportValidity()) return;
+        
+        this.loading = true;
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        })
+
+        store.dispatch(updateAccount(this.data, this.whenDone.bind(this)))
+
+    }
+
+    whenDone(success, error) {
+        this.loading = false;
+        if (success) this.success(success)
+        if (error) this.error(error)
+    }
+
+    success(data) {
+        console.log("Document successfully written!", data);
+    }
+
+    error(data) {
+        alert('an error occured, check the console')
+        console.log("error occured!", data);
+    }
+
     /**
      * Use for one-time configuration of your component after local DOM is initialized. 
      */
@@ -82,7 +114,7 @@ class BnAccount extends connect(store)(PageViewElement) {
     }
 
     _stateChanged(state){
-        
+        this.data = state.app.user
     }
 }
 

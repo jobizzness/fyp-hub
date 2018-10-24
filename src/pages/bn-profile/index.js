@@ -12,12 +12,17 @@ import { PageViewElement } from "../../components/page-view-element";
 import { connect } from 'pwa-helpers/connect-mixin.js';
 
 import { store } from '../../store.js';
+import { MDCTextField } from '@material/textfield'
+import { MDCCheckbox } from '@material/checkbox'
+import { MDCFormField } from '@material/form-field'
+
 import template from './template.html';
 import SharedStyles from '../../components/shared-styles.html'
 import textField from '../../components/material/textfield.html'
 import formField from '../../components/material/form-field.html'
 import button from '../../components/material/button.html'
 import checkbox from '../../components/material/checkbox.html'
+
 /**
  * `bn-project` Description
  *
@@ -63,6 +68,9 @@ class BnProfile extends connect(store)(PageViewElement) {
 
     connectedCallback(){
         super.connectedCallback();
+        this.shadowRoot.querySelectorAll('.mdc-text-field').forEach((node) => new MDCTextField(node));
+        this.shadowRoot.querySelectorAll('.mdc-checkbox').forEach((node) => new MDCCheckbox(node));
+        this.shadowRoot.querySelectorAll('.mdc-form-field').forEach((node) => new MDCFormField(node));
     }
 
     /**

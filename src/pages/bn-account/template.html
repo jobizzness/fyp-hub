@@ -2,60 +2,125 @@
     :host{
         padding: 16px;
     }
+    .page-title{
+        font-size: 21px;
+        font-weight: 500;
+        color: #6d6d6d;
+    }
+    .profile-info--wrapper{
+        border-radius: 4px;
+        margin: 2em 0;
+    }
+    .user-profile--avatar {
+        height: 200px;
+        width: 200px;
+        border-radius: 50%;
+        background-color: #eee;
+        margin-bottom: 16px;
+        overflow: hidden;
+        background-size: cover;
+    }
+    .profile-info--wrapper>div:nth-child(2){
+        background-color: white;
+    }
+    .profile-info--wrapper>div:first-child{
+        background-color: #eee;
+    }
+    form{
+        padding: 3em;
+    }
+    form h1{
+        margin: 1em 0;
+        font-weight: 300;
+        font-size: 1.3rem;
+    }
+    .actions{
+        margin: 3em 0;
+    }
 </style>
 
-<section page="register" selected$="[[is_selected(page, 'register')]]">
-                    <!-- 
-                        ========== Register Form ==============
-                     -->
-                    <form id="formRegister">
-                        <section class="row">
-                            <div class="mdc-text-field text-field mdc-text-field--dense mdc-text-field--box mdc-text-field--with-leading-icon">
-                                <iron-icon class="mdc-text-field__icon" icon="bn-icons:email"></iron-icon>
-                                <input id="email" name="email" type="email" required value="{{email::change}}" class="mdc-text-field__input">
-                                <label class="mdc-floating-label" for="email">Email</label>
-                                <div class="mdc-line-ripple"></div>
+    <div class="page-wrapper pad">
+        <header class="pad layout horizontal">
+            <h1 class="page-title">Account</h1>
+            <span class="flex"></span>
+            <paper-spinner active="[[loading]]"></paper-spinner>
+        </header>
+        <section class="profile-info--wrapper layout horizontal pad">
+            <div class="flex layout vertical pad text-center center-center" style="max-height: 500px;">
+                <div class="user-profile">
+                    <div class="user-profile--avatar" style="background-image: url(https://pbs.twimg.com/profile_images/972460944994418688/zipc-DNs_400x400.jpg)">
+                        <img src="https://pbs.twimg.com/profile_images/972460944994418688/zipc-DNs_400x400.jpg" alt="" hidden="" title="">
+                    </div>
+                    <!-- Avatar -->
+                    <h3 class="user-profile--name">{{data.name}}</h3>
+                    <h4 class="user-profile--nickname">{{data.tp_number}}</h4>
+                </div>
+            </div>
+            <div class="flex">
+                <form id="profileForm">
+                    <section class="row">
+                        <div class="mdc-text-field text-field mdc-text-field--dense mdc-text-field--box mdc-text-field--with-leading-icon">
+                            <iron-icon class="mdc-text-field__icon" icon="bn-icons:person"></iron-icon>
+                            <input id="name" name="name" type="text" required value="{{data.name::change}}" class="mdc-text-field__input">
+                            <label class="mdc-floating-label" for="name">Name</label>
+                            <div class="mdc-line-ripple"></div>
+                        </div>
+                    </section>
+                    <section class="row">
+                        <div class="mdc-text-field text-field mdc-text-field--dense mdc-text-field--box mdc-text-field--with-leading-icon">
+                            <iron-icon class="mdc-text-field__icon" icon="bn-icons:email"></iron-icon>
+                            <input id="email" name="email" type="email" required value="{{data.email::change}}" class="mdc-text-field__input">
+                            <label class="mdc-floating-label" for="email">Email</label>
+                            <div class="mdc-line-ripple"></div>
+                        </div>
+                    </section>
+                    
+                    <section class="row">
+                        <div class="mdc-text-field mdc-text-field--textarea flex">
+                                <textarea 
+                                    id="textarea" 
+                                    class="mdc-text-field__input" 
+                                    rows="8" 
+                                    required
+                                    value="{{data.bio::change}}"
+                                    cols="40"></textarea>
+                                <label for="textarea" class="mdc-floating-label">Tell us about yourself</label>
                             </div>
-                        </section>
-                        <section class="row">
-                            <div class="mdc-text-field text-field mdc-text-field--dense mdc-text-field--box mdc-text-field--with-leading-icon">
-                                <iron-icon class="mdc-text-field__icon" icon="bn-icons:key"></iron-icon>
-                                <input type="password" id="password" required value="{{password::change}}" class="mdc-text-field__input">
-                                <label class="mdc-floating-label" for="password">Password</label>
-                                <div class="mdc-line-ripple"></div>
-                            </div>
-                        </section>
-                         <!-- User type -->
-                        <iron-selector
-                            class="row" 
-                            style="margin-top:1em"
-                            attr-for-selected="type" 
-                            selected="{{accountType}}" 
-                            fallback-selection="student">
-                            <div class="bn-button-select flex" 
-                                type="student">
-                                <iron-icon icon="bn-icons:person"></iron-icon>
-                                Student
-                            </div>
-                            <div class="bn-button-select flex" 
-                                type="tutor">
-                                <iron-icon icon="bn-icons:supervisor"></iron-icon>
-                                Tutor
-                            </div>
-                        </iron-selector>
-                        <!-- Actions -->
-                        <section class="actions">
-                            <button class="mdc-button mdc-button--raised" on-click="register" disabled$="[[loading]]">
-                                Sign Up
-                            </button>
-                            <div class="social">
-                            
-                            </div>
-                            <div class="text-block bottom layout horizontal">
-                                <span class="text-small font-weight-semibold">Already a member ?</span>
-                                <span class="flex"></span>
-                                <a href="/auth/login" class="text-black text-small">Login here</a>
-                            </div>
-                        </section>
-                    </form>
-                </section>
+                    </section>
+                    <section class="row">
+                        <div class="mdc-text-field text-field mdc-text-field--dense mdc-text-field--box mdc-text-field--with-leading-icon">
+                            <iron-icon class="mdc-text-field__icon"></iron-icon>
+                            <input id="tp_number" name="tp_number" type="text" value="{{data.tp_number::change}}" class="mdc-text-field__input">
+                            <label class="mdc-floating-label" for="tp_number">TP Number</label>
+                            <div class="mdc-line-ripple"></div>
+                        </div>
+                    </section>
+                    <h1>Update Password</h1>
+                    <section class="row">
+                        <div class="mdc-text-field text-field mdc-text-field--dense mdc-text-field--box mdc-text-field--with-leading-icon">
+                            <iron-icon class="mdc-text-field__icon" icon="bn-icons:key"></iron-icon>
+                            <input type="password" id="password_old" required value="{{password_old::change}}" class="mdc-text-field__input">
+                            <label class="mdc-floating-label" for="password_old">Old Password</label>
+                            <div class="mdc-line-ripple"></div>
+                        </div>
+                    </section>
+                    <section class="row">
+                        <div class="mdc-text-field text-field mdc-text-field--dense mdc-text-field--box mdc-text-field--with-leading-icon">
+                            <iron-icon class="mdc-text-field__icon" icon="bn-icons:key"></iron-icon>
+                            <input type="password" id="password_new" required value="{{password_new::change}}" class="mdc-text-field__input">
+                            <label class="mdc-floating-label" for="password_new">New Password</label>
+                            <div class="mdc-line-ripple"></div>
+                        </div>
+                    </section>
+                    <!-- Actions -->
+                    <section class="actions">
+                        <paper-button class="accent-button rounded-slightly create-btn" on-click="submit">
+                            Update
+                        </paper-button>
+                    </section>
+                </form>
+            </div>
+        </section>
+    </div>
+    
+</div>

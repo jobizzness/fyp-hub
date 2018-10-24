@@ -73,7 +73,6 @@ class BnFeed extends connect(store)(PageViewElement) {
 		this.$viewer.data = e.target.data
 	}
 	_view(e){
-		console.log(e)
 		this.$viewer.open();
 	}
 
