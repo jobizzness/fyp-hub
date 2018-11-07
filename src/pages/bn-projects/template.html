@@ -16,17 +16,10 @@
 
     </header>
     <div class="list">
-        <a href="/project/">
-            <bn-project-item></bn-project-item>
-        </a>
-        <a href="/project/">
-            <bn-project-item></bn-project-item>
-        </a>
-        <a href="/project/">
-            <bn-project-item></bn-project-item>
-        </a>
-        <a href="/project/">
-            <bn-project-item></bn-project-item>
-        </a>
+        <template is="dom-repeat" items="[[projects]]" as="project">
+            <a href="/project/">
+                <bn-project-item></bn-project-item>
+            </a>
+        </template>
     </div>
 </section>

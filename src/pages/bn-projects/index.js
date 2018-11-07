@@ -16,6 +16,15 @@ import template from './template.html'
 import SharedStyles from '../../components/shared-styles.html'
 import '../../components/bn-project-item.js'
 
+import { getProjects } from "../../actions/discussion.js"
+import { discussion } from '../../reducers/discussion.js'
+
+
+// Initially loaded reducers.
+store.addReducers({
+    discussion
+});
+
 /**
  * `bn-project` Description
  *
@@ -34,10 +43,18 @@ class BnProjects extends connect(store)(PageViewElement) {
     }
 
     /**
-            * Object describing property-related metadata used by Polymer features
-            */
+    * Object describing property-related metadata used by Polymer features
+    */
     static get properties() {
-        return {}
+        return {
+            user:{
+                observer: '_userChanged'
+            }
+        }
+    }
+
+    _userChanged(user){
+        store.dispatch(getProjects(user))
     }
 
 
@@ -59,10 +76,12 @@ class BnProjects extends connect(store)(PageViewElement) {
      */
     ready() {
         super.ready();
+        
     }
 
     _stateChanged(state){
-        
+        this.projects = state.discussion.projects
+        this.user = state.app.user
     }
 }
 

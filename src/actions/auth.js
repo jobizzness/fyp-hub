@@ -76,7 +76,7 @@ const fetchUser = async (auth) => {
     let user = null;
 
     if(auth){
-        let ref = firebase.firestore().doc(`user/${auth.uid}`)
+        let ref = firebase.firestore().doc(`users/${auth.uid}`)
         try {
             let doc = await ref.get()
             if (doc.exists) {

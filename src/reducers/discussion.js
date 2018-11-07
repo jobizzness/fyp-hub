@@ -10,20 +10,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 import { 
   CREATE_DISCUSSION, 
-  UPDATE_DISCUSSION_LIST
+  UPDATE_DISCUSSION_LIST, CREATE_PROJECT, UPDATE_PROJECT_LIST
 } from "../actions/discussion.js";
 
-export const discussion = (state = {list: []}, action) => {
+export const discussion = (state = {list: [], projects: []}, action) => {
   switch (action.type) {
     case CREATE_DISCUSSION:
       //boom
       return state
-      break;
     case UPDATE_DISCUSSION_LIST:
       return {
         ...state,
         list: action.list
       }
+    case UPDATE_PROJECT_LIST:
+      return {
+        ...state,
+        projects: action.projects
+      }
+    case CREATE_PROJECT: 
+      return state
     default:
       return state
   }

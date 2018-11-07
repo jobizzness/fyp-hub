@@ -11,7 +11,6 @@ import { html } from '@polymer/polymer/polymer-element.js'
 import { PageViewElement } from '../../components/page-view-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 
-import '../../components/discussion-editor.js'
 import '../../components/bn-discussion.js'
 import '../../components/bn-post-item'
 import { store } from '../../store.js'

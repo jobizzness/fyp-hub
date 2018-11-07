@@ -9,9 +9,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 */
 import "firebase/firestore"
 
-export const CREATE_DISCUSSION = 'CREATE_DISCUSSION';
+export const CREATE_DISCUSSION = 'CREATE_DISCUSSION'
+export const UPDATE_PROJECT_LIST = 'UPDATE_PROJECT_LIST'
 export const UPDATE_DISCUSSION_LIST = 'UPDATE_DISCUSSION_LIST'
 export const UPDATE_DISCUSSION_REPLIES = 'UPDATE_DISCUSSION_REPLIES'
+export const CREATE_PROJECT = 'CREATE_PROJECT'
 
 /**
   * @desc opens a modal window to display a message
@@ -23,6 +25,23 @@ const createDiscussion = (discussion, done) => async (dispatch) => {
   const ref = firebase.firestore().collection('discussion')
   try {
     const doc = await ref.add(discussion)
+    done(doc)
+  } catch (error) {
+    done(null, error)
+  }
+  
+}
+
+/**
+  * @desc opens a modal window to display a message
+  * @param string msg - the message to be displayed
+  * @return bool - success or failure
+*/
+const createProject = (project, done) => async (dispatch) => {
+
+  const ref = firebase.firestore().collection('project')
+  try {
+    const doc = await ref.add(project)
     done(doc)
   } catch (error) {
     done(null, error)
@@ -96,6 +115,37 @@ const getDiscussions = () => async (dispatch) => {
   * @desc opens a modal window to display a message
   * @param string msg - the message to be displayed
   * @return bool - success or failure
+*/
+const getProjects = (user = null) => async (dispatch, getState) => {
+
+  console.log(user, getState())
+  const ref = firebase.firestore().collection('project')
+  try {
+    let response = await ref.get()
+    let projects = []
+
+    response.forEach(function (doc) {
+      projects.push({
+        ...doc.data(),
+        id: doc.id
+      })
+    });
+
+    dispatch({
+      type: UPDATE_PROJECT_LIST,
+      projects
+    })
+
+  } catch (error) {
+    console.log(error)
+  }
+
+}
+
+/**
+  * @desc opens a modal window to display a message
+  * @param string msg - the message to be displayed
+  * @return bool - success or failure
   */
 const getDiscussionReplies = (discussion, done) => async (dispatch) => {
   const ref = firebase.firestore().collection('discussion').doc(discussion.id).collection('replies')
@@ -124,5 +174,5 @@ const getDiscussionReplies = (discussion, done) => async (dispatch) => {
 export { 
         getDiscussionReplies, getDiscussions, 
         updateDiscussionReply, createDiscussion, 
-        createReply
+  createReply, createProject, getProjects
       }

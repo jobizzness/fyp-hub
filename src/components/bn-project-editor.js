@@ -15,7 +15,7 @@ import button from './material/button.html'
 import select from "./material/select.html";
 
 // Actions
-import { createDiscussion, getDiscussions } from "../actions/discussion.js";
+import { getProjects, createProject } from "../actions/discussion.js";
 
 customElements.define('bn-project-editor', class extends mixinBehaviors(
     [IronOverlayBehavior], PolymerElement) {
@@ -133,7 +133,7 @@ customElements.define('bn-project-editor', class extends mixinBehaviors(
             </style>
             <div>
                 <header class="toolbar">
-                    <h1 class="title">Compose your question</h1>
+                    <h1 class="title">Create a Project</h1>
                     <span class="flex"></span>
                     <button class="mdc-button" dialog-dismiss>
                         <iron-icon icon="bn-icons:close"></iron-icon>
@@ -141,22 +141,28 @@ customElements.define('bn-project-editor', class extends mixinBehaviors(
                 </header>
                 <main>
                     <form>
+                        
                         <section class="row">
-                            <div class="mdc-select flex">
-                                <select class="mdc-select__native-control"
-                                    required
-                                    value="{{data.category::change}}">
-                                    <option value="" disabled selected></option>
-                                    <template is="dom-repeat" items="[[categories]]">
-                                        <option value="[[item.value]]">[[item.name]]</option>
-                                    </template>
-                                </select>
-                                <label class="mdc-floating-label">Select Category</label>
+                            <div class="mdc-text-field text-field mdc-text-field--dense mdc-text-field--box mdc-text-field--with-leading-icon">
+                                <input id="title" name="title" type="text" required value="{{data.title::change}}" class="mdc-text-field__input">
+                                <label class="mdc-floating-label" for="title">Title</label>
                                 <div class="mdc-line-ripple"></div>
                             </div>
                         </section>
                         <section class="row">
-                            <div class="mdc-text-field mdc-text-field--textarea flex">
+                            <div class="mdc-text-field text-field mdc-text-field--dense mdc-text-field--box mdc-text-field--with-leading-icon">
+                                <input id="supervisor" name="supervisor" type="email" required value="{{data.supervisor::change}}" class="mdc-text-field__input">
+                                <label class="mdc-floating-label" for="supervisor">Supervisor Email</label>
+                                <div class="mdc-line-ripple"></div>
+                            </div>
+                            <div class="mdc-text-field text-field mdc-text-field--dense mdc-text-field--box mdc-text-field--with-leading-icon">
+                                <input id="second_marker" name="second_marker" type="email" required value="{{data.second_marker::change}}" class="mdc-text-field__input">
+                                <label class="mdc-floating-label" for="second_marker">Second Marker Email</label>
+                                <div class="mdc-line-ripple"></div>
+                            </div>
+                        </section>
+                        <section class="row">
+                        <div class="mdc-text-field mdc-text-field--textarea flex">
                                 <textarea 
                                     id="textarea" 
                                     class="mdc-text-field__input" 
@@ -164,16 +170,16 @@ customElements.define('bn-project-editor', class extends mixinBehaviors(
                                     required
                                     value="{{data.description::change}}"
                                     cols="40"></textarea>
-                                <label for="textarea" class="mdc-floating-label">Enter your question</label>
+                                <label for="textarea" class="mdc-floating-label">Project description</label>
                             </div>
-                        </section>
+                    </section>
 
                         <!-- Actions -->
                         <section class="actions">
                             <button 
                                 class="mdc-button mdc-button--raised" 
                                 on-click="submit" 
-                                disabled$="[[loading]]">Post</button>
+                                disabled$="[[loading]]">Create</button>
                         </section>
                     </form>
                 </main>
@@ -205,9 +211,7 @@ customElements.define('bn-project-editor', class extends mixinBehaviors(
     connectedCallback() {
         super.connectedCallback()
 
-        this.select = new MDCSelect(this.shadowRoot.querySelector('.mdc-select'))
-        this.shadowRoot.querySelectorAll('.mdc-text-field').forEach((node) => new MDCTextField(node));
-        this.shadowRoot.querySelectorAll('.mdc-form-field').forEach((node) => new MDCFormField(node));
+        
     }
 
     _renderOpened() {
@@ -215,6 +219,9 @@ customElements.define('bn-project-editor', class extends mixinBehaviors(
         this.dispatchEvent(new CustomEvent('before-open', {}));
         this.restoreFocusOnClose = true;
         this.classList.add('opened');
+
+        this.shadowRoot.querySelectorAll('.mdc-text-field').forEach((node) => new MDCTextField(node));
+        this.shadowRoot.querySelectorAll('.mdc-form-field').forEach((node) => new MDCFormField(node));
     }
 
     _renderClosed() {
@@ -261,17 +268,15 @@ customElements.define('bn-project-editor', class extends mixinBehaviors(
 
     _create() {
         const data = {
-            category: this.data.category,
+            title: this.data.title,
+            supervisor: this.data.supervisor,
+            second_marker: this.data.second_marker,
             description: this.data.description,
-            owner: {
-                name: this.user.name,
-                avatar: this.user.avatar || null,
-                id: this.user.id
-            },
-            replies: []
+            user_id: this.user.id
         }
         this.loading = true;
-        store.dispatch(createDiscussion(data, this.whenDone.bind(this)));
+        console.log(data)
+        store.dispatch(createProject(data, this.whenDone.bind(this)));
     }
 
     whenDone(success, error) {
@@ -284,7 +289,7 @@ customElements.define('bn-project-editor', class extends mixinBehaviors(
 
     success(data) {
         this.opened = false;
-        store.dispatch(getDiscussions())
+        store.dispatch(getProjects())
         console.log("Document successfully written!", data);
     }
 

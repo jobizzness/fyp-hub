@@ -30,6 +30,9 @@ import SharedStyles from '../shared-styles.html'
 import fb from "firebase/app"
 import "firebase/firestore"
 
+import '../discussion-editor.js'
+import '../bn-project-editor.js'
+
 // Initialize Firebase
 let config = {
 	apiKey: "AIzaSyA7MawaD_MRPhoUVe8AxzXH_U5hAt-65gE",
