@@ -14,6 +14,7 @@ import '../my-icons.js';
 import '@polymer/paper-button/paper-button.js'
 import '@polymer/iron-icon/iron-icon.js'
 import '@polymer/paper-progress/paper-progress.js'
+import '@polymer/paper-spinner/paper-spinner.js'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 import { installRouter } from 'pwa-helpers/router.js'
 import { installOfflineWatcher } from 'pwa-helpers/network.js'

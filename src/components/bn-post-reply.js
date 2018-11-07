@@ -64,9 +64,9 @@ class BnPostReply extends PolymerElement {
             <div class="wrapper">
                 <header class="">
                     <div class="avatar"
-                        style$="background-image: url([[_formatAvatar(data.owner.avatar)]])">
+                        style$="background-image: url([[_formatAvatar(data.avatar)]])">
                     </div>
-                    <h3>[[_formatName(data.owner.name)]]</h3>
+                    <h3>[[_formatName(data.name)]]</h3>
                 </header>
                 <div>
                     <p>[[data.text]]<p>

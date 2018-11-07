@@ -1,10 +1,11 @@
-import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-import '@polymer/iron-flex-layout/iron-flex-layout.js';
-import '@polymer/paper-icon-button/paper-icon-button.js';
-import { IronOverlayBehavior } from '@polymer/iron-overlay-behavior/iron-overlay-behavior.js';
-import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
+import { PolymerElement, html } from '@polymer/polymer/polymer-element.js'
+import '@polymer/iron-flex-layout/iron-flex-layout.js'
+import '@polymer/paper-icon-button/paper-icon-button.js'
+import { IronOverlayBehavior } from '@polymer/iron-overlay-behavior/iron-overlay-behavior.js'
+import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js'
 import { store } from '../store.js'
-import { MDCSelect } from "@material/select";
+
+import { MDCSelect } from "@material/select"
 import { MDCTextField } from '@material/textfield'
 import { MDCFormField } from '@material/form-field'
 
@@ -12,11 +13,11 @@ import SharedStyles from './shared-styles.html'
 import textField from './material/textfield.html'
 import formField from './material/form-field.html'
 import button from './material/button.html'
-import select from "./material/select.html";
+import select from "./material/select.html"
 
 import './bn-post-reply.js'
 // Actions
-import { createReply, getDiscussion } from "../actions/discussion.js";
+import { createReply, getDiscussion } from "../actions/discussion.js"
 
 customElements.define('bn-discussion', class extends mixinBehaviors(
     [IronOverlayBehavior], PolymerElement) {
@@ -126,6 +127,13 @@ customElements.define('bn-discussion', class extends mixinBehaviors(
                 max-width: 643px;
                 margin-top: -3em;
             }
+            .respondants--loader{
+                padding-left: 4em;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 162px;
+            }
             @media (max-width: 767px) {
                 :host {
                     /* top: auto;
@@ -152,6 +160,9 @@ customElements.define('bn-discussion', class extends mixinBehaviors(
                             avatar="[[user.avatar]]"></bn-post-item>
                     </div>
                     <div class="respondants layout vertical center-center">
+                        <div class="respondants--loader" hidden="[[data.replies]]">
+                            <paper-spinner active></paper-spinner>                       
+                        </div>
                         <template is="dom-repeat" items="[[data.replies]]">
                             <bn-post-reply 
                                 data="[[item]]"
@@ -165,12 +176,15 @@ customElements.define('bn-discussion', class extends mixinBehaviors(
                                 class="mdc-text-field__input" 
                                 rows="2" 
                                 required
-                                value="{{reply}}"
+                                value="{{reply::change}}"
                                 cols="40"></textarea>
                             <label for="textarea" class="mdc-floating-label">Enter your reply</label>
                         </div>
                         <div class="layout horizontal end-justified">
-                            <paper-button class="accent-button rounded-slightly create-btn" disabled="[[loading]]" on-click="_reply">
+                            <paper-button 
+                                class="accent-button rounded-slightly create-btn" 
+                                disabled="[[loading]]" 
+                                on-click="_reply">
                                 Reply
                             </paper-button>
                         </div>
@@ -251,13 +265,12 @@ customElements.define('bn-discussion', class extends mixinBehaviors(
     }
 
     _reply() {
-        if (this.reply && this.data) {
+        if (this.reply && this.reply != '' && this.data) {
             const reply = {
-                post: this.data,
                 text: this.reply,
-                name: '',
-                user_id: '',
-                avatar: '',
+                name: this.user.name,
+                user_id: this.user.id,
+                avatar: this.user.avatar,
             }
             this.loading = true;
             store.dispatch(createReply(this.data, reply, this.whenDone.bind(this)));

@@ -18,7 +18,7 @@ import { store } from '../../store.js'
 import template from './template.html'
 import SharedStyles from '../../components/shared-styles.html'
 
-import { getDiscussions } from "../../actions/discussion.js"
+import { getDiscussions, getDiscussionReplies } from "../../actions/discussion.js"
 import { discussion} from '../../reducers/discussion.js'
 
 
@@ -72,8 +72,25 @@ class BnFeed extends connect(store)(PageViewElement) {
 	_select(e){
 		this.$viewer.data = e.target.data
 	}
+
 	_view(e){
 		this.$viewer.open();
+		this.getReplies(e.target.data);
+	}
+
+	getReplies(data){
+		store.dispatch(getDiscussionReplies(data, (replies, error) => {
+			if (replies && this.$viewer.data.id == data.id) {
+				this.$viewer.data = {
+					...data,
+					replies
+				}
+			}
+
+			if (error) {
+
+			}
+		}))
 	}
 
 	connectedCallback(){

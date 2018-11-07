@@ -11,8 +11,14 @@ import "firebase/firestore"
 
 export const CREATE_DISCUSSION = 'CREATE_DISCUSSION';
 export const UPDATE_DISCUSSION_LIST = 'UPDATE_DISCUSSION_LIST'
+export const UPDATE_DISCUSSION_REPLIES = 'UPDATE_DISCUSSION_REPLIES'
 
-export const createDiscussion = (discussion, done) => async (dispatch) => {
+/**
+  * @desc opens a modal window to display a message
+  * @param string msg - the message to be displayed
+  * @return bool - success or failure
+*/
+const createDiscussion = (discussion, done) => async (dispatch) => {
 
   const ref = firebase.firestore().collection('discussion')
   try {
@@ -24,15 +30,44 @@ export const createDiscussion = (discussion, done) => async (dispatch) => {
   
 }
 
-export const createReply = (discussion, reply, done) => async (dispatch) => {
+/**
+  * @desc opens a modal window to display a message
+  * @param string msg - the message to be displayed
+  * @return bool - success or failure
+*/
+const createReply = (discussion, reply, done) => async (dispatch) => {
+  const ref = firebase.firestore().collection('discussion').doc(discussion.id)
+  try {
+    const doc = await ref.get()
+
+    if (doc.exists) {
+        console.log(reply)
+        const response = await ref.collection('replies').add(reply)
+        done(response)
+    } 
+    else {
+        done(null, {message: 'Post does not exist'})
+    }
+  } catch (error) {
+      done(null, error)
+  }
+}
+
+/**
+  * @desc opens a modal window to display a message
+  * @param string msg - the message to be displayed
+  * @return bool - success or failure
+*/
+const updateDiscussionReply = (discussion, reply, done) => (dispatch) => {
 
 }
 
-export const updateDiscussionReply = (discussion, reply, done) => (dispatch) => {
-
-}
-
-export const getDiscussions = () => async (dispatch) => {
+/**
+  * @desc opens a modal window to display a message
+  * @param string msg - the message to be displayed
+  * @return bool - success or failure
+*/
+const getDiscussions = () => async (dispatch) => {
 
   const ref = firebase.firestore().collection('discussion')
   try {
@@ -56,3 +91,38 @@ export const getDiscussions = () => async (dispatch) => {
   }
   
 }
+
+/**
+  * @desc opens a modal window to display a message
+  * @param string msg - the message to be displayed
+  * @return bool - success or failure
+  */
+const getDiscussionReplies = (discussion, done) => async (dispatch) => {
+  const ref = firebase.firestore().collection('discussion').doc(discussion.id).collection('replies')
+  try {
+
+    let response = await ref.get()
+    let list = []
+
+    response.forEach(function (doc) {
+      list.push({
+        ...doc.data(),
+        id: doc.id
+      })
+    });
+
+    done(list)
+
+
+  } catch (error) {
+    done(null, error)
+    console.log(error)
+  }
+
+}
+
+export { 
+        getDiscussionReplies, getDiscussions, 
+        updateDiscussionReply, createDiscussion, 
+        createReply
+      }

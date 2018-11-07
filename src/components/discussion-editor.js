@@ -267,8 +267,7 @@ customElements.define('bn-discussion-editor', class extends mixinBehaviors(
                 name: this.user.name,
                 avatar: this.user.avatar || null,
                 id: this.user.id
-            },
-            replies: []
+            }
         }
         this.loading = true;
         store.dispatch(createDiscussion(data, this.whenDone.bind(this)));
