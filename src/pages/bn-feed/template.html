@@ -92,7 +92,13 @@
         color: #008398;
         font-size: .9rem;
     }
-    
+    .respondants--loader{
+        padding-left: 4em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 162px;
+    }
 </style>
 <div class="layout horizontal">
     <section class="feed flex">
@@ -105,14 +111,18 @@
             </header>
             <!-- Share something component -->
             <div class="create-post-card shadow pad layout horizontal center" on-click="_create">
-                <div class="avatar" style="background-image: url(https://pbs.twimg.com/profile_images/972460944994418688/zipc-DNs_400x400.jpg)">
-                    <img src="https://pbs.twimg.com/profile_images/972460944994418688/zipc-DNs_400x400.jpg" alt="" title="">
+                <div class="avatar" style="background-image: url([[user.avatar]])">
+                    <img src="[[user.avatar]]" alt="" title="">
                 </div>
                 <h1>Share something or ask a question...</h1>
                 <paper-ripple></paper-ripple>
             </div>
             <!-- List of all the discussions -->
             <div class="list">
+
+                <div class="respondants--loader" hidden="[[discussions.0]]">
+                    <paper-spinner active></paper-spinner>
+                </div>
                 <template is="dom-repeat" items="[[discussions]]" as="discussion">
                     <bn-post-item 
                         data="[[discussion]]"
@@ -178,25 +188,4 @@
                 </a>
             </div>
         </div>
-        <div class="card">
-            <div class="card-header">
-                <h1 class="heading-6">FYP Advice</h1>
-            </div>
-            <div class="card-body advices">
-                <a href="#" class="widget-item">
-                    <!-- <span class="advice--title">How do i get started with my research?</span> -->
-                </a>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header">
-                <h1 class="heading-6">Jobs</h1>
-            </div>
-            <div class="card-body">
-            
-            </div>
-        </div>
-        <div class="card"></div>
-    </section>
-    <!-- <bn-discussion-editor id="editor" opened></bn-discussion-editor> -->
 </div>

@@ -17,9 +17,9 @@
     </header>
     <div class="list">
         <template is="dom-repeat" items="[[projects]]" as="project">
-            <a href="/project/">
-                <bn-project-item></bn-project-item>
-            </a>
+            <bn-project-item 
+                data="[[project]]"
+                on-click="_show"></bn-project-item>
         </template>
     </div>
 </section>

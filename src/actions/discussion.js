@@ -118,8 +118,11 @@ const getDiscussions = () => async (dispatch) => {
 */
 const getProjects = (user = null) => async (dispatch, getState) => {
 
-  console.log(user, getState())
-  const ref = firebase.firestore().collection('project')
+  if(!user){
+    return;
+  }
+
+  const ref = firebase.firestore().collection('project').where("user_id", "==", user.id)
   try {
     let response = await ref.get()
     let projects = []

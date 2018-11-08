@@ -143,7 +143,7 @@
     <div class="aside-inner">
       <div class="user-profile">
         <div class="user-profile--avatar"
-        style="background-image: url(https://pbs.twimg.com/profile_images/972460944994418688/zipc-DNs_400x400.jpg)">
+          style$="background-image: url([[_user.avatar]])">
           <img 
             src="https://pbs.twimg.com/profile_images/972460944994418688/zipc-DNs_400x400.jpg" 
             alt="" 
@@ -173,6 +173,10 @@
         </a>
         <a href="/account/" class="nav-item" active$="[[is_selected('account', page)]]">
           <iron-icon icon="bn-icons:settings" class="mar-l-r-8"></iron-icon> Account Settings
+          <paper-ripple></paper-ripple>
+        </a>
+        <a href="/auth/login" class="nav-item" active$="[[is_selected('logout', page)]]">
+          <iron-icon icon="bn-icons:lock" class="mar-l-r-8"></iron-icon> Logout
           <paper-ripple></paper-ripple>
         </a>
       </nav>

@@ -13,7 +13,7 @@ import '@polymer/iron-image';
 import '@polymer/iron-icon';
 
 class BnProjectItem extends LitElement {
-    _render(props) {
+    _render({data}) {
         return html`
         <style>
             :host{
@@ -75,12 +75,12 @@ class BnProjectItem extends LitElement {
         <div class="wrapper">
             <header>
                 <div class="horizontal">
-                    <h1 class="title">Tranmission Network design & Implementation</h1>
+                    <h1 class="title">${data.title}</h1>
                 </div>
-                <div class="project-type">WEB DEVELOPMENT</div>
+                <div class="project-type">Final Year Project</div>
             </header>
             <div>
-                <p class="description">The answer is that they are both correct. When developing locally, bower_components is the folder that contains all of your dependencies. So it is logical to import codes from there, the problem comes when you want to make demos for example on CodePen...</p>
+                <p class="description">${this._getExcerpt(data.description)}</p>
                 <div class="project-team horizontal">
                     <span class="label">Team:</span>
                     <div class="horizontal team">
@@ -118,6 +118,12 @@ class BnProjectItem extends LitElement {
     constructor() {
         super();
 
+    }
+
+    _getExcerpt(description){
+        if(!description) return;
+
+        return description.substring(0, 350) + '...';
     }
 
     _firstRendered() {

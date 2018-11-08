@@ -102,7 +102,7 @@ const createUser = async (ref, auth) => {
         name: auth.displayName,
         email: auth.email,
         country: "MY",
-        avatar: null
+        avatar: '/assets/avatar.png'
     });
 
     return ref.get();
