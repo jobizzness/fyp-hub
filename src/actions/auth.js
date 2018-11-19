@@ -65,7 +65,7 @@ export const updateAccount = (data, done) => async (dispatch) => {
     try {
         await ref.set(data)
         const user = await ref.get()
-        updateUser(user, dispatch)
+        updateUser(user.data(), dispatch)
         done(user)
     } catch (error) {
         done(null, error)
@@ -94,6 +94,11 @@ const fetchUser = async (auth) => {
 
     return user;
 
+}
+
+export const logout = () => async (dispatch) => {
+    await firebase.auth().signOut()
+    updateUser(null, dispatch);
 }
 
 const createUser = async (ref, auth) => {

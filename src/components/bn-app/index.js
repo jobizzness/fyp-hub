@@ -23,7 +23,7 @@ import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js'
 
 import { store } from '../../store.js'
 import { navigate, updateOffline, updateLayout } from '../../actions/app.js'
-import { listenAuthChange } from '../../actions/auth.js'
+import { listenAuthChange, logout } from '../../actions/auth.js'
 import template from './template.html'
 import SharedStyles from '../shared-styles.html'
 
@@ -119,19 +119,21 @@ class BnApp extends connect(store)(PolymerElement) {
 	}
 
 	_checkUserCanViewPage(page, _user){
-		// afterNextRender(this, () => {
-		// 	if (page === 'auth' && _user) {
-		// 		//take you to home
-		// 		if (this.togo) {
-		// 			this.$.homeLink.href = "/" + this.togo + '/'
-		// 		}
-		// 		this.$.homeLink.click()
-		// 	} else if (page != 'auth' && !_user) {
-		// 		//send you to auth
-		// 		this.togo = page;
-		// 		this.$.authLink.click()
-		// 	}
-		// })
+		if(!page) return;
+			if (page === 'auth' && _user) {
+				//take you to home
+				if (this.togo) {
+					this.$.homeLink.href = "/" + this.togo + '/'
+				}
+				this.$.homeLink.click()
+			} else if (page != 'auth' && !_user) {
+				console.log(page)
+				//send you to auth
+				console.log('not logged in')
+				this.togo = page;
+				this.$.authLink.click()
+			}
+
 		
 	}
 
@@ -178,6 +180,10 @@ class BnApp extends connect(store)(PolymerElement) {
 	_toggleBodyScroll(){
 		this.body = this.body || document.getElementsByTagName('body')[0]
 		this.body.classList.toggle('no-scroll')
+	}
+
+	logout(){
+		store.dispatch(logout())
 	}
 
 

@@ -17,10 +17,10 @@ class BnPostReply extends PolymerElement {
         return html`
             <style>
                 :host{
-                    margin: -30px 0;
+                    border: 1px solid #eee;
                     padding: 16px;
                     background-color: white;
-                    min-height: 150px;
+                    min-height: 110px;
                     border-radius: 16px;
                     max-width: 620px;
                 }

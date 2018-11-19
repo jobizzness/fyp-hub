@@ -175,7 +175,7 @@
           <iron-icon icon="bn-icons:settings" class="mar-l-r-8"></iron-icon> Account Settings
           <paper-ripple></paper-ripple>
         </a>
-        <a href="/auth/login" class="nav-item" active$="[[is_selected('logout', page)]]">
+        <a href="/auth/login" on-click="logout" class="nav-item" active$="[[is_selected('logout', page)]]">
           <iron-icon icon="bn-icons:lock" class="mar-l-r-8"></iron-icon> Logout
           <paper-ripple></paper-ripple>
         </a>
